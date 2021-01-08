@@ -1,6 +1,98 @@
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 // config
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Exo 2', sans-serif;
+}
+
+// main
+.main {
+  min-height: 100vh;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+}
+// header
+header {
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  .wrapper {
+    width: 85%;
+    height: 100%;
+    position: relative;
+    background: radial-gradient(at 800% -800%, white, #0d324d);
+    // clip-path: ellipse(100% 100% at 0 0);
+    border-bottom-right-radius: 100%;
+    // box-shadow: #0d324d 1px 1px 10px;
+    box-shadow: #00000027 2px 2px 5px;
+
+    .title {
+      width: 160px;
+      height: 160px;
+      position: absolute;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: outset 3px #F3FFC6;
+      border-radius: 10px;
+      color: #0d324d;
+      font-weight: 900;
+      font-size: 40px;
+      text-shadow: white 1px 1px 1px;
+      background: radial-gradient(at -80px -100px, white, #009fb7);
+    }
+  }
+  .navbar {
+    height: 120%;
+    width: 60%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: radial-gradient(at 700% -700%, white, #0d324d);
+    z-index: -1;
+    border-bottom-left-radius: 100%;
+    box-shadow: #00000027 3px 3px 5px;
+    .navbar-item {
+      border-radius: 50%;
+      background: red;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      // background: #009fb7;
+      background: radial-gradient(at -80px -100px, white, #009fb7);
+    }
+    .new-todo {
+      height: 60px;
+      width: 60px;
+      top: 60%;
+      right: calc(3% + 85px + 80px + 75px);
+    }
+    .new-project {
+      height: 65px;
+      width: 65px;
+      top: 60%;
+      right: calc(3% + 85px + 80px);
+    }
+    .todos {
+      height: 70px;
+      width: 70px;
+      top: 60%;
+      right: calc(3% + 85px);
+    }
+    .projects {
+      height: 75px;
+      width: 75px;
+      top: 60%;
+      right: 3%;
+    }
+  }
 }

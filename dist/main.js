@@ -1,1 +1,1 @@
-console.log("Works");
+(()=>{const t={ToDoItem:class{constructor(t="New To Do Item",o="Description",e=((t,o)=>(t.setDate(t.getDate()+o),t))(new Date,30),s="low",i="Notes",c=[]){this.title=t,this.description=o,this.dueDate=e,this.priority=s,this.notes=i,this.checklist=c}},ToDoProject:class{constructor(t="New Project",o="Description",e=[]){this.title=t,this.description=o,this.toDoItems=e}}};let o=new t.ToDoItem;console.log(o);let e=new t.ToDoProject;console.log(e)})();
