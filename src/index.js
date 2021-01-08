@@ -1,4 +1,10 @@
+import { DomToDosByDate } from "./domToDosByDate.js";
+
 const ToDo = (() => {
+
+  const toDos = [];
+  
+  const projects = [];
 
   class ToDoItem {
     constructor(
@@ -7,7 +13,9 @@ const ToDo = (() => {
       dueDate = _addDays(new Date(), 30),
       priority = "low",
       notes = "Notes",
-      checklist = []
+      checklist = [],
+      completed = false,
+      completedOn = false
     ){
       this.title = title;
       this.description = description;
@@ -15,6 +23,9 @@ const ToDo = (() => {
       this.priority = priority;
       this.notes = notes;
       this.checklist = checklist;
+      this.completed = completed;
+      this.completedOn = completedOn;
+      toDos.push(this);
     };
   };
 
@@ -22,11 +33,16 @@ const ToDo = (() => {
     constructor(
       title = "New Project",
       description = "Description",
-      toDoItems = []
+      toDoItems = [],
+      completed = false,
+      completedOn = false
     ){
       this.title = title;
       this.description = description;
       this.toDoItems = toDoItems;
+      this.completed = completed;
+      this.completedOn = completedOn;
+      projects.push(this);
     };
   };
 
@@ -36,12 +52,26 @@ const ToDo = (() => {
     return date;
   };
 
-  return { ToDoItem, ToDoProject };
+  return { ToDoItem, ToDoProject, toDos, projects };
 
 })();
 
-let todo1 = new ToDo.ToDoItem();
-console.log(todo1);
+let todo1 = new ToDo.ToDoItem("Tide up", "Tide up my bedroom and kitchen.", new Date("2021-1-25"), "normal", "Use vacuum cleaner not just a broom.", [["kitchen", 1], ["bedroom", 0]], true, new Date("2021-1-5"));
 
-let project1 = new ToDo.ToDoProject();
-console.log(project1);
+let todo4 = new ToDo.ToDoItem("Buy a lamp", "Buy lamp at ikea.", new Date("2021-3-1"), "high", "Max price is 10$.");
+
+let todo2 = new ToDo.ToDoItem("Buy a table", "Buy kitchen table at ikea.", new Date("2021-2-28"), "high", "Max price is 100$.");
+let todo3 = new ToDo.ToDoItem("Learn programming", "Learn at least 5 programming languages.", new Date("2021-4-15"), "low", "3 languages on advanced level and 2 intermediate.", [["golang", 0], ["javascript", 1], ["ruby", 1], ["rust", 0], ["c#", 0]]);
+// console.log(todo1);
+
+let project1 = new ToDo.ToDoProject("House renovation", "Steb by step revonation of my house.", );
+// console.log(project1);
+
+let todos = ToDo.toDos;
+let projects = ToDo.projects;
+// console.log(projects[1]);
+let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
+// console.log(projects[1]);
+
+DomToDosByDate.buildToDosByDate(todos);
+// console.log("test");
