@@ -23,7 +23,6 @@ $dark-blue: #0d324d;
 
 // todo cards layout
 .todo-item {
-  // border: solid 1px rgb(0, 0, 0);
   .wrapper {
     width: 200px;
     height: 240px;
@@ -36,7 +35,6 @@ $dark-blue: #0d324d;
     box-shadow: $dark-blue 1px 2px 3px;
 
     div {
-      // border: solid 1px red;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -66,6 +64,26 @@ $dark-blue: #0d324d;
     .project-div {
       flex-basis: 60%;
       height: 35%;
+    }
+  }
+  .add-todo {
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    font-weight: 700;
+    color: transparentize($color: $dark-blue, $amount: 0.2);
+    text-shadow: $dark-blue 0px 0px 1px;
+    cursor: pointer;
+    transition: color .25s;
+    &:hover {
+      text-shadow: none;
+      color: $dark-blue;
+      background: radial-gradient(at 300% 200%, white, $light-blue);
+      box-shadow: $dark-blue 2px 3px 4px;
+      span {
+        transition: scale .4s;
+        scale: 1.1;
+      }
     }
   }
 }

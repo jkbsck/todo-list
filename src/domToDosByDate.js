@@ -75,9 +75,12 @@ const DomToDosByDate = (() => {
 
     // wrapper inside of card container
     let wrapper = document.createElement("div");
-    wrapper.classList.add("wrapper");
+    wrapper.classList.add("wrapper", "add-todo");
     toDo.appendChild(wrapper);
-    wrapper.textContent = "+";
+
+    let plus = document.createElement("span");
+    wrapper.appendChild(plus);
+    plus.textContent = "+";
 
   };
 

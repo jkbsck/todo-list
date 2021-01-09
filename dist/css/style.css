@@ -256,4 +256,34 @@ header .navbar .projects {
       flex-basis: 60%;
   height: 35%;
 }
+
+.todo-item .add-todo {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 100px;
+  font-weight: 700;
+  color: rgba(13, 50, 77, 0.8);
+  text-shadow: #0d324d 0px 0px 1px;
+  cursor: pointer;
+  -webkit-transition: color .25s;
+  transition: color .25s;
+}
+
+.todo-item .add-todo:hover {
+  text-shadow: none;
+  color: #0d324d;
+  background: radial-gradient(at 300% 200%, white, #009fb7);
+  -webkit-box-shadow: #0d324d 2px 3px 4px;
+          box-shadow: #0d324d 2px 3px 4px;
+}
+
+.todo-item .add-todo:hover span {
+  -webkit-transition: scale .4s;
+  transition: scale .4s;
+  scale: 1.1;
+}
 /*# sourceMappingURL=style.css.map */
