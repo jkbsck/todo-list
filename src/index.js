@@ -9,10 +9,10 @@ const ToDo = (() => {
   class ToDoItem {
     constructor(
       title = "New To Do Item", 
-      description = "Description",
+      description = "Description...",
       dueDate = _addDays(new Date(), 30),
       priority = "low",
-      notes = "Notes",
+      notes = "Notes...",
       checklist = [],
       completed = false,
       completedOn = false,
@@ -75,8 +75,8 @@ let projects = ToDo.projects;
 let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
 // console.log(projects[1]);
 
-todo4.project = project1.title;
-todo2.project = project1.title;
+todo4.project = project1;
+todo2.project = project1;
 
 DomToDosByDate.buildToDosByDate(todos);
 // console.log("test");
