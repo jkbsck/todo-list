@@ -284,6 +284,6 @@ header .navbar .projects {
 .todo-item .add-todo:hover span {
   -webkit-transition: scale .4s;
   transition: scale .4s;
-  scale: 1.1;
+  scale: 1.05;
 }
 /*# sourceMappingURL=style.css.map */
