@@ -186,12 +186,17 @@ header .navbar .projects {
   font-family: 'Exo 2', sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 .main {
   min-height: 100vh;
   background: radial-gradient(at -200% -100%, white, #009fb7);
 }
 
 .todo-item .wrapper {
+  position: relative;
   width: 200px;
   height: 240px;
   margin: 10px auto;
@@ -205,6 +210,52 @@ header .navbar .projects {
   background: radial-gradient(at -200% -100%, white, #009fb7);
   -webkit-box-shadow: #0d324d 1px 2px 3px;
           box-shadow: #0d324d 1px 2px 3px;
+}
+
+.todo-item .wrapper:hover {
+  background: radial-gradient(at 300% 200%, white, #009fb7);
+  -webkit-box-shadow: #0d324d 2px 3px 4px;
+          box-shadow: #0d324d 2px 3px 4px;
+}
+
+.todo-item .wrapper .menu-btn {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 50% 25% 25% 50%;
+  border: solid 1px #0d324d;
+  top: 5px;
+  right: -10px;
+  -webkit-box-shadow: #0d324d -1px 1px 2px;
+          box-shadow: #0d324d -1px 1px 2px;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+  cursor: pointer;
+}
+
+.todo-item .wrapper .menu-btn:hover {
+  background: radial-gradient(at 500% 400%, white, #009fb7);
+}
+
+.todo-item .wrapper .menu-btn div {
+  width: 20px;
+  height: 4px;
+  border: solid 2px #0d324d;
+  background: #0d324d;
+  margin: 2px;
+  border-radius: 2px;
 }
 
 .todo-item .wrapper div {
@@ -258,6 +309,10 @@ header .navbar .projects {
 }
 
 .todo-item .add-todo {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -265,12 +320,17 @@ header .navbar .projects {
       -ms-flex-align: center;
           align-items: center;
   font-size: 100px;
-  font-weight: 700;
+  font-weight: 600;
   color: rgba(13, 50, 77, 0.8);
   text-shadow: #0d324d 0px 0px 1px;
   cursor: pointer;
   -webkit-transition: color .25s;
   transition: color .25s;
+}
+
+.todo-item .add-todo :nth-child(2) {
+  font-size: 32px;
+  font-weight: 500;
 }
 
 .todo-item .add-todo:hover {
@@ -279,11 +339,19 @@ header .navbar .projects {
   background: radial-gradient(at 300% 200%, white, #009fb7);
   -webkit-box-shadow: #0d324d 2px 3px 4px;
           box-shadow: #0d324d 2px 3px 4px;
+  font-weight: 700;
+  line-height: 40px;
 }
 
-.todo-item .add-todo:hover span {
+.todo-item .add-todo:hover :nth-child(1) {
   -webkit-transition: scale .4s;
   transition: scale .4s;
   scale: 1.05;
+  -webkit-transition: -webkit-transform .6s ease;
+  transition: -webkit-transform .6s ease;
+  transition: transform .6s ease;
+  transition: transform .6s ease, -webkit-transform .6s ease;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 /*# sourceMappingURL=style.css.map */

@@ -15,6 +15,11 @@ $dark-blue: #0d324d;
   font-family: 'Exo 2', sans-serif;
 }
 
+// hidden
+.hidden {
+  display: none;
+}
+
 // main
 .main {
   min-height: 100vh;
@@ -24,6 +29,7 @@ $dark-blue: #0d324d;
 // todo cards layout
 .todo-item {
   .wrapper {
+    position: relative;
     width: 200px;
     height: 240px;
     margin: 10px auto;
@@ -33,6 +39,39 @@ $dark-blue: #0d324d;
     flex-wrap: wrap;
     background: radial-gradient(at -200% -100%, white, $light-blue);
     box-shadow: $dark-blue 1px 2px 3px;
+    &:hover {
+      background: radial-gradient(at 300% 200%, white, $light-blue);
+      box-shadow: $dark-blue 2px 3px 4px;
+    }
+    
+    // menu btn
+    .menu-btn {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50% 25% 25% 50%;
+      border: solid 1px $dark-blue;
+      top: 5px;
+      right: -10px;
+      box-shadow: $dark-blue -1px 1px 2px;
+      background: radial-gradient(at -200% -100%, white, $light-blue);
+      cursor: pointer;
+      &:hover {
+        background: radial-gradient(at 500% 400%, white, $light-blue);
+      }
+      div {
+        width: 20px;
+        height: 4px;
+        border: solid 2px $dark-blue;
+        background: $dark-blue;
+        margin: 2px;
+        border-radius: 2px;
+      }
+    }
 
     div {
       display: flex;
@@ -66,23 +105,34 @@ $dark-blue: #0d324d;
       height: 35%;
     }
   }
+
+  // add new to do item button
   .add-todo {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 100px;
-    font-weight: 700;
+    font-weight: 600;
     color: transparentize($color: $dark-blue, $amount: 0.2);
     text-shadow: $dark-blue 0px 0px 1px;
     cursor: pointer;
     transition: color .25s;
+    :nth-child(2) {
+      font-size: 32px;
+      font-weight: 500;
+    }
     &:hover {
       text-shadow: none;
       color: $dark-blue;
       background: radial-gradient(at 300% 200%, white, $light-blue);
       box-shadow: $dark-blue 2px 3px 4px;
-      span {
+      font-weight: 700;
+      line-height: 40px;
+      :nth-child(1) {
         transition: scale .4s;
         scale: 1.05;
+        transition: transform .6s ease;
+        transform: rotate(180deg);
       }
     }
   }

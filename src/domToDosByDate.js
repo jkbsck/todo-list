@@ -66,6 +66,17 @@ const DomToDosByDate = (() => {
     project.textContent = toDo.project !== false ? toDo.project.title : "-";
     projectDiv.appendChild(project);
 
+    // menu button
+    let menuBtn = document.createElement("div");
+    wrapper.appendChild(menuBtn);
+    menuBtn.classList.add("menu-btn");
+
+    let stickOne = document.createElement("div");
+    menuBtn.appendChild(stickOne);
+
+    let stickTwo = document.createElement("div");
+    menuBtn.appendChild(stickTwo);
+
   };
 
   // create last card as an add new card button
@@ -84,6 +95,19 @@ const DomToDosByDate = (() => {
     let plus = document.createElement("span");
     wrapper.appendChild(plus);
     plus.textContent = "+";
+
+    let add = document.createElement("span");
+    add.classList.add("hidden");
+    wrapper.appendChild(add);
+    add.textContent = "Add";
+
+    wrapper.addEventListener("mouseenter", () => {
+      add.classList.remove("hidden");
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      add.classList.add("hidden");
+    });
 
   };
 
