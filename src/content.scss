@@ -1,1 +1,19 @@
 
+// content
+.content {
+  position: relative;
+  width: 1360px;
+  min-height: 500px;
+  top: 272px;
+  margin: auto;
+  background: radial-gradient(at 700% -700%, white, transparentize($color: $dark-blue, $amount: .3));
+  // border: solid 1px $dark-blue;
+  border-radius: 12px;
+  box-shadow: $dark-blue 2px 3px 4px;
+}
+
+@media (max-width: 1440px) {
+  .content {
+    width: 92%;
+  }
+}

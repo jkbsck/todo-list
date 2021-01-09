@@ -15,7 +15,8 @@ const ToDo = (() => {
       notes = "Notes",
       checklist = [],
       completed = false,
-      completedOn = false
+      completedOn = false,
+      project = false
     ){
       this.title = title;
       this.description = description;
@@ -25,6 +26,7 @@ const ToDo = (() => {
       this.checklist = checklist;
       this.completed = completed;
       this.completedOn = completedOn;
+      this.project = project;
       toDos.push(this);
     };
   };
@@ -72,6 +74,9 @@ let projects = ToDo.projects;
 // console.log(projects[1]);
 let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
 // console.log(projects[1]);
+
+todo4.project = project1.title;
+todo2.project = project1.title;
 
 DomToDosByDate.buildToDosByDate(todos);
 // console.log("test");
