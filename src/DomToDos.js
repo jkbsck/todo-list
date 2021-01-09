@@ -1,4 +1,6 @@
-const DomToDosByDate = (() => {
+// DOM manipulation of To Do elements
+
+const DomToDos = (() => {
 
   // order toDos by due date and removes completed todos
   const _orderToDos = (toDosWithoutOrder) => {
@@ -77,6 +79,9 @@ const DomToDosByDate = (() => {
     let stickTwo = document.createElement("div");
     menuBtn.appendChild(stickTwo);
 
+    // expand menu event listener
+    menuBtn.addEventListener("click", _expandToDo);
+
   };
 
   // create last card as an add new card button
@@ -111,6 +116,23 @@ const DomToDosByDate = (() => {
 
   };
 
+  const _expandToDo = (event) => {
+
+    let toDoDiv = event.currentTarget.parentElement.parentElement;
+    toDoDiv.classList.toggle("col-6");
+    toDoDiv.classList.toggle("col-12");
+    toDoDiv.classList.toggle("col-md-4");
+    toDoDiv.classList.toggle("col-md-8");
+    toDoDiv.classList.toggle("col-xl-3");
+    toDoDiv.classList.toggle("col-xl-6");
+
+    // expanded content
+    let expandedToDo = document.createElement("div");
+    toDoDiv.appendChild(expandedToDo);
+    expandedToDo.classList.add("expanded-todo")
+        
+  };
+
   // build html for todos ordered by dueDate
   const buildToDosByDate = (toDosWithoutOrder) => {
 
@@ -131,4 +153,4 @@ const DomToDosByDate = (() => {
 
 })();
 
-export { DomToDosByDate };
+export { DomToDos };

@@ -1,4 +1,4 @@
-import { DomToDosByDate } from "./domToDosByDate.js";
+import { DomToDos } from "./DomToDos.js";
 
 const ToDo = (() => {
 
@@ -78,5 +78,5 @@ let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
 todo4.project = project1;
 todo2.project = project1;
 
-DomToDosByDate.buildToDosByDate(todos);
+DomToDos.buildToDosByDate(todos);
 // console.log("test");
