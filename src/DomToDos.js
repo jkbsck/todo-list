@@ -127,10 +127,16 @@ const DomToDos = (() => {
     toDoDiv.classList.toggle("col-xl-6");
 
     // expanded content
-    let expandedToDo = document.createElement("div");
-    toDoDiv.appendChild(expandedToDo);
-    expandedToDo.classList.add("expanded-todo")
-        
+    if (toDoDiv.children.length === 1){
+      let expandedToDo = document.createElement("div");
+      toDoDiv.appendChild(expandedToDo);
+      expandedToDo.classList.add("expanded-todo");
+
+      toDoDiv.children[0].classList.add("wrapper-expanded");
+    } else {
+      toDoDiv.children[1].remove();
+      toDoDiv.children[0].classList.remove("wrapper-expanded");
+    };
   };
 
   // build html for todos ordered by dueDate
