@@ -78,5 +78,10 @@ let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
 todo4.project = project1;
 todo2.project = project1;
 
+for (let i = 1; i < 10; i++) {
+	new ToDo.ToDoItem();
+  // toodos.push(todo);
+};
+
 DomToDos.buildToDosByDate(todos);
 // console.log("test");

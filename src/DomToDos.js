@@ -12,7 +12,7 @@ const DomToDos = (() => {
 
     // card container
     let toDoDiv = document.createElement("div");
-    toDoDiv.classList.add("todo-item", "col-6", "col-md-4", "col-xl-3");
+    toDoDiv.classList.add("todo-item");
     parent.appendChild(toDoDiv);
 
     // wrapper inside of card container
@@ -89,7 +89,7 @@ const DomToDos = (() => {
 
     // card container
     let toDo = document.createElement("div");
-    toDo.classList.add("todo-item", "col-6", "col-md-4", "col-xl-3");
+    toDo.classList.add("todo-item");
     parent.appendChild(toDo);
 
     // wrapper inside of card container
@@ -119,12 +119,10 @@ const DomToDos = (() => {
   const _expandToDo = (event) => {
 
     let toDoDiv = event.currentTarget.parentElement.parentElement;
-    toDoDiv.classList.toggle("col-6");
-    toDoDiv.classList.toggle("col-12");
-    toDoDiv.classList.toggle("col-md-4");
-    toDoDiv.classList.toggle("col-md-8");
-    toDoDiv.classList.toggle("col-xl-3");
-    toDoDiv.classList.toggle("col-xl-6");
+
+    // when expanded, takes two columns / rows in grid instead of one
+    toDoDiv.style.gridColumn === "span 2" ? toDoDiv.style.gridColumn = "" : toDoDiv.style.gridColumn = "span 2";
+    toDoDiv.style.gridRow === "span 2" ? toDoDiv.style.gridRow = "" : toDoDiv.style.gridRow = "span 2";
 
     // expanded content
     if (toDoDiv.children.length === 1){
@@ -145,7 +143,11 @@ const DomToDos = (() => {
     // order toDos by due date and removes completed todos
     const toDos = _orderToDos(toDosWithoutOrder);
 
-    const content = document.querySelector(".content");
+    const contentContainer = document.querySelector(".content-container");
+    const content = document.createElement("div");
+    contentContainer.appendChild(content);
+    content.classList.add("content");
+    
 
     for (let i = 0; i < toDos.length; i++) {
       _buildToDoCard(content, toDos[i]);
