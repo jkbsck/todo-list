@@ -86,4 +86,4 @@ todos[todos.length - 1].dueDate = new Date("2020-1-1");
 
 
 // DomToDos.buildToDosByDate(todos);
-DomToDos.newToDo(todos);
+DomToDos.newToDo(todos, projects);

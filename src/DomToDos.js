@@ -296,7 +296,7 @@ const DomToDos = (() => {
 
   };
 
-  const newToDo = (toDos) => {
+  const newToDo = (toDos, projects) => {
 
     const contentContainer = document.querySelector(".content-container");
     const newToDoWrapper = document.createElement("div");
@@ -400,6 +400,71 @@ const DomToDos = (() => {
     high.name = "priority";
     high.id = "high";
 
+    // project
+    let projectWrapper = document.createElement("div");
+    wrapperOne.appendChild(projectWrapper);
+    projectWrapper.classList.add("project-wrapper");
+
+    let projectLabel = document.createElement("span");
+    projectWrapper.appendChild(projectLabel);
+    projectLabel.textContent = "Project: ";
+
+    let project = document.createElement("select");
+    projectWrapper.appendChild(project);
+    project.name = "project";
+
+    projects.forEach(element => {
+      let elementDiv = document.createElement("option");
+      project.appendChild(elementDiv);
+      elementDiv.value = element.title;
+      elementDiv.textContent = element.title;
+    });
+
+    // second form div content
+    // notes
+    let notesWrapper = document.createElement("div");
+    wrapperTwo.appendChild(notesWrapper);
+    notesWrapper.classList.add("notes-wrapper");
+
+    let notesLabel = document.createElement("span");
+    notesWrapper.appendChild(notesLabel);
+    notesLabel.textContent = "Notes: ";
+
+    let notes = document.createElement("input");
+    notesWrapper.appendChild(notes);
+    notes.type = "text";
+    notes.value = "Notes";
+
+    // checkList
+    let checkListWrapper = document.createElement("div");
+    wrapperTwo.appendChild(checkListWrapper);
+    checkListWrapper.classList.add("check-list-wrapper");
+
+    let checkListLabel = document.createElement("span");
+    checkListWrapper.appendChild(checkListLabel);
+    checkListLabel.textContent = "Checklist: ";
+
+    // add button for checklist items
+    let addCheckListItem = document.createElement("div");
+    checkListWrapper.appendChild(addCheckListItem);
+    addCheckListItem.textContent = "+";
+    addCheckListItem.addEventListener("click", () => {
+
+      let checkListItem = document.createElement("div");
+      checkListWrapper.insertBefore(checkListItem, addCheckListItem);
+
+      let checkBoxTitle = document.createElement("input");
+      checkListItem.appendChild(checkBoxTitle);
+      checkBoxTitle.type = "text";
+
+      let checkBox = document.createElement("input");
+      checkListItem.appendChild(checkBox);
+      checkBox.type = "checkbox";
+
+    });
+
+      
+
     // submit button
     let submitBtnWrapper = document.createElement("div");
     newToDoWrapper.appendChild(submitBtnWrapper);
@@ -410,7 +475,8 @@ const DomToDos = (() => {
     submitBtn.textContent = "Save";
     submitBtn.addEventListener("click", () => {
       // console.log(priority);
-      alert(document.querySelector('input[name="priority"]:checked').id);
+      // alert(document.querySelector('input[name="priority"]:checked').id);
+      alert(project.value);
     });
 
   };
