@@ -172,6 +172,7 @@ const DomToDos = (() => {
       completeBtn.appendChild(completeTitle);
       completeTitle.textContent = "COMPLETE";
 
+      // adjust styles and content according to state of completion
       completeBtn.addEventListener("click", (e) => {
         if (toDo.completed === false) {
           toDo.completed = true;
@@ -238,9 +239,32 @@ const DomToDos = (() => {
       checkListTitle.textContent = "Checklist: ";
       checkListDiv.appendChild(checkListTitle);
 
-      let checkList = document.createElement("span");
-      checkList.textContent = toDo.checkList;
-      checkListDiv.appendChild(checkList);
+      let checkListWrapper = document.createElement("div");
+      checkListWrapper.classList.add("checklist-wrapper");
+      checkListDiv.appendChild(checkListWrapper);
+
+      // each check item + event listeners
+      toDo.checklist.forEach(element => {
+        let checkBoxWrapper = document.createElement("div");
+        checkListWrapper.appendChild(checkBoxWrapper);
+
+        let checkBox = document.createElement("div");
+        checkBoxWrapper.appendChild(checkBox);
+        checkBox.textContent = element[1] == 1 ? "✓" : "";
+        checkBox.addEventListener("click", (e) => {
+          if (element[1] == 1) {
+            element[1] = 0;
+            checkBox.textContent = "";
+          } else {
+            element[1] = 1;
+            checkBox.textContent = "✓";
+          };
+        });
+
+        let checkBoxTitle = document.createElement("div");
+        checkBoxWrapper.appendChild(checkBoxTitle);
+        checkBoxTitle.textContent = element[0];
+      });
       
     } else {
       toDoDiv.children[1].remove();

@@ -169,7 +169,7 @@ $dark-blue: #0d324d;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 10% 40% 50%;
-    div {
+    & > div {
       display: flex;
       flex-direction: column;
       padding: 10px;
@@ -200,6 +200,57 @@ $dark-blue: #0d324d;
     }
     .description-div {
       grid-column: 2 / 3;
+    }
+    .checklist-div {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      // border: solid 1px red;
+      * {
+        // border: solid 1px;
+      }
+      .checklist-wrapper {
+        // margin: 0;
+        // padding: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        // border: solid 1px rgb(0, 255, 0);
+        div {
+          height: 28px !important;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          font-size: 14px;
+          :nth-child(1) {
+            height: 20px !important;
+            width: 24px !important;
+            border: solid 3px $dark-blue;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            font-size: 28px;
+            color: $light-blue;
+            background: $dark-blue;
+            cursor: pointer;
+          }
+          :nth-child(2) {
+            height: 16px !important;
+            // border: solid 1px yellowgreen;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-weight: initial;
+          }
+        }
+      }
     }
   }
 
