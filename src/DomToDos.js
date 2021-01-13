@@ -80,7 +80,9 @@ const DomToDos = (() => {
     menuBtn.appendChild(stickTwo);
 
     // expand menu event listener
-    menuBtn.addEventListener("click", _expandToDo);
+    menuBtn.addEventListener("click", (e) => {
+      _expandToDo(e, toDo, menuBtn);
+    });
 
   };
 
@@ -116,7 +118,7 @@ const DomToDos = (() => {
 
   };
 
-  const _expandToDo = (event) => {
+  const _expandToDo = (event, toDo, menuBtn) => {
 
     let toDoDiv = event.currentTarget.parentElement.parentElement;
 
@@ -131,9 +133,67 @@ const DomToDos = (() => {
       expandedToDo.classList.add("expanded-todo");
 
       toDoDiv.children[0].classList.add("wrapper-expanded");
+
+      // change style of menu btn
+      menuBtn.classList.toggle("menu-btn-expanded");
+
+      // create and fill elements inside expanded div
+
+      // description
+      let descriptionDiv = document.createElement("div");
+      descriptionDiv.classList.add("description-div");
+      expandedToDo.appendChild(descriptionDiv);
+
+      let descriptionTitle = document.createElement("span");
+      descriptionTitle.textContent = "Description: ";
+      descriptionDiv.appendChild(descriptionTitle);
+
+      let description = document.createElement("span");
+      description.textContent = toDo.description;
+      descriptionDiv.appendChild(description);
+
+      // notes
+      let notesDiv = document.createElement("div");
+      notesDiv.classList.add("notes-div");
+      expandedToDo.appendChild(notesDiv);
+
+      let notesTitle = document.createElement("span");
+      notesTitle.textContent = "Notes: ";
+      notesDiv.appendChild(notesTitle);
+
+      let notes = document.createElement("span");
+      notes.textContent = toDo.notes;
+      notesDiv.appendChild(notes);
+
+      // checklist
+      let checkListDiv = document.createElement("div");
+      checkListDiv.classList.add("checklist-div");
+      expandedToDo.appendChild(checkListDiv);
+
+      let checkListTitle = document.createElement("span");
+      checkListTitle.textContent = "Checklist: ";
+      checkListDiv.appendChild(checkListTitle);
+
+      let checkList = document.createElement("span");
+      checkList.textContent = toDo.checkList;
+      checkListDiv.appendChild(checkList);
+
+      // this.title = title;
+      // this.description = description;
+      // this.dueDate = dueDate;
+      // this.priority = priority;
+      // this.notes = notes;
+      // this.checklist = checklist;
+      // this.completed = completed;
+      // this.completedOn = completedOn;
+      // this.project = project;
+      
     } else {
       toDoDiv.children[1].remove();
       toDoDiv.children[0].classList.remove("wrapper-expanded");
+
+      // change style of menu btn
+      menuBtn.classList.toggle("menu-btn-expanded");
     };
   };
 

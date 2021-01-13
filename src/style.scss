@@ -109,6 +109,20 @@ $dark-blue: #0d324d;
       }
     }
 
+    .menu-btn-expanded {
+      right: -210px;
+      :nth-child(1) {
+        transform: rotate(45deg);
+        margin-bottom: -.18rem;
+        margin-left: .2rem;
+      }
+      :nth-child(2) {
+        transform: rotate(-45deg);
+        margin-top: -.1rem;
+        margin-left: .2rem;
+      }
+    }
+
     div {
       display: flex;
       flex-direction: column;
@@ -148,7 +162,25 @@ $dark-blue: #0d324d;
     position: relative;
     top: -240px;
     margin: 0 auto;
-    border: solid 1px;
+    border: solid 1px $dark-blue;
+    border-radius: 10px;
+    background: radial-gradient(at -200% -100%, white, $light-blue);
+    box-shadow: $dark-blue 1px 2px 3px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    div {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      :first-child {
+        align-self: center;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+    .description-div {
+      grid-column: 2 / 3;
+    }
   }
 
   .wrapper-expanded {
@@ -163,8 +195,8 @@ $dark-blue: #0d324d;
     font-size: 100px;
     font-weight: 600;
     color: transparentize($color: $dark-blue, $amount: 0.2);
+    background: radial-gradient(at 300% 200%, white, lighten($color: $light-blue, $amount: 15));
     text-shadow: $dark-blue 0px 0px 1px;
-    background: rgba(255, 255, 255, 0.719);
     cursor: pointer;
     transition: color .25s;
     :nth-child(2) {
@@ -174,7 +206,7 @@ $dark-blue: #0d324d;
     &:hover {
       text-shadow: none;
       color: $dark-blue;
-      background: radial-gradient(at 300% 200%, white, $light-blue);
+      background: radial-gradient(at -300% -200%, white, lighten($color: $light-blue, $amount: 15));
       box-shadow: $dark-blue 2px 3px 4px;
       font-weight: 700;
       line-height: 40px;

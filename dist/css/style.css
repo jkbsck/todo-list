@@ -315,6 +315,24 @@ header .navbar .projects {
   border-radius: 2px;
 }
 
+.todo-item .wrapper .menu-btn-expanded {
+  right: -210px;
+}
+
+.todo-item .wrapper .menu-btn-expanded :nth-child(1) {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  margin-bottom: -.18rem;
+  margin-left: .2rem;
+}
+
+.todo-item .wrapper .menu-btn-expanded :nth-child(2) {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  margin-top: -.1rem;
+  margin-left: .2rem;
+}
+
 .todo-item .wrapper div {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -371,7 +389,40 @@ header .navbar .projects {
   position: relative;
   top: -240px;
   margin: 0 auto;
-  border: solid 1px;
+  border: solid 1px #0d324d;
+  border-radius: 10px;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+  -webkit-box-shadow: #0d324d 1px 2px 3px;
+          box-shadow: #0d324d 1px 2px 3px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+}
+
+.todo-item .expanded-todo div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10px;
+}
+
+.todo-item .expanded-todo div :first-child {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.todo-item .expanded-todo .description-div {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2 / 3;
 }
 
 .todo-item .wrapper-expanded {
@@ -392,8 +443,8 @@ header .navbar .projects {
   font-size: 100px;
   font-weight: 600;
   color: rgba(13, 50, 77, 0.8);
+  background: radial-gradient(at 300% 200%, white, #05deff);
   text-shadow: #0d324d 0px 0px 1px;
-  background: rgba(255, 255, 255, 0.719);
   cursor: pointer;
   -webkit-transition: color .25s;
   transition: color .25s;
@@ -407,7 +458,7 @@ header .navbar .projects {
 .todo-item .add-todo:hover {
   text-shadow: none;
   color: #0d324d;
-  background: radial-gradient(at 300% 200%, white, #009fb7);
+  background: radial-gradient(at -300% -200%, white, #05deff);
   -webkit-box-shadow: #0d324d 2px 3px 4px;
           box-shadow: #0d324d 2px 3px 4px;
   font-weight: 700;
