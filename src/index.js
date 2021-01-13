@@ -83,5 +83,7 @@ for (let i = 1; i < 10; i++) {
 };
 todos[todos.length - 1].dueDate = new Date("2020-1-1");
 
-DomToDos.buildToDosByDate(todos);
-// console.log("test");
+
+
+// DomToDos.buildToDosByDate(todos);
+DomToDos.newToDo(todos);

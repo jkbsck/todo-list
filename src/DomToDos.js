@@ -296,7 +296,126 @@ const DomToDos = (() => {
 
   };
 
-  return { buildToDosByDate };
+  const newToDo = (toDos) => {
+
+    const contentContainer = document.querySelector(".content-container");
+    const newToDoWrapper = document.createElement("div");
+    contentContainer.appendChild(newToDoWrapper);
+    newToDoWrapper.classList.add("new-todo-wrapper");
+    
+    let wrapperOne = document.createElement("div");
+    newToDoWrapper.appendChild(wrapperOne);
+    wrapperOne.classList.add("wrapper-one");
+
+    let wrapperTwo = document.createElement("div");
+    newToDoWrapper.appendChild(wrapperTwo);
+    wrapperTwo.classList.add("wrapper-two");
+
+    // first form div content
+    // title
+    let titleWrapper = document.createElement("div");
+    wrapperOne.appendChild(titleWrapper);
+    titleWrapper.classList.add("title-wrapper");
+
+    let titleLabel = document.createElement("span");
+    titleWrapper.appendChild(titleLabel);
+    titleLabel.textContent = "Title: ";
+
+    let title = document.createElement("input");
+    titleWrapper.appendChild(title);
+    title.type = "text";
+    title.value = "To Do";
+
+    // description
+    let descriptionWrapper = document.createElement("div");
+    wrapperOne.appendChild(descriptionWrapper);
+    descriptionWrapper.classList.add("description-wrapper");
+
+    let descriptionLabel = document.createElement("span");
+    descriptionWrapper.appendChild(descriptionLabel);
+    descriptionLabel.textContent = "Description: ";
+
+    let description = document.createElement("input");
+    descriptionWrapper.appendChild(description);
+    description.type = "text";
+    description.value = "Description";
+
+    // dueDate
+    let dueDateWrapper = document.createElement("div");
+    wrapperOne.appendChild(dueDateWrapper);
+    dueDateWrapper.classList.add("due-date-wrapper");
+
+    let dueDateLabel = document.createElement("span");
+    dueDateWrapper.appendChild(dueDateLabel);
+    dueDateLabel.textContent = "Due date: ";
+
+    let dueDate = document.createElement("input");
+    dueDateWrapper.appendChild(dueDate);
+    dueDate.type = "date";
+    dueDate.valueAsDate = new Date();
+
+    // priority
+    let priorityWrapper = document.createElement("div");
+    wrapperOne.appendChild(priorityWrapper);
+    priorityWrapper.classList.add("priority-wrapper");
+
+    let priorityLabel = document.createElement("span");
+    priorityWrapper.appendChild(priorityLabel);
+    priorityLabel.textContent = "Priority: ";
+
+    let priority = document.createElement("form");
+    priorityWrapper.appendChild(priority);
+
+    // low
+    let lowLabel = document.createElement("span");
+    priority.appendChild(lowLabel);
+    lowLabel.textContent = "Low";
+
+    let low = document.createElement("input");
+    priority.appendChild(low);
+    low.type = "radio";
+    low.name = "priority";
+    low.id = "low";
+    low.checked = true;
+
+    // normal
+    let normalLabel = document.createElement("span");
+    priority.appendChild(normalLabel);
+    normalLabel.textContent = "Normal";
+
+    let normal = document.createElement("input");
+    priority.appendChild(normal);
+    normal.type = "radio";
+    normal.name = "priority";
+    normal.id = "normal";
+
+    // high
+    let highLabel = document.createElement("span");
+    priority.appendChild(highLabel);
+    highLabel.textContent = "High";
+
+    let high = document.createElement("input");
+    priority.appendChild(high);
+    high.type = "radio";
+    high.name = "priority";
+    high.id = "high";
+
+    // submit button
+    let submitBtnWrapper = document.createElement("div");
+    newToDoWrapper.appendChild(submitBtnWrapper);
+    submitBtnWrapper.classList.add("submit-btn-wrapper");
+
+    let submitBtn = document.createElement("div");
+    submitBtnWrapper.appendChild(submitBtn);
+    submitBtn.textContent = "Save";
+    submitBtn.addEventListener("click", () => {
+      // console.log(priority);
+      alert(document.querySelector('input[name="priority"]:checked').id);
+    });
+
+  };
+
+  return { buildToDosByDate, newToDo };
 
 })();
 
