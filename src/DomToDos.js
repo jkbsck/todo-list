@@ -29,17 +29,35 @@ const DomToDos = (() => {
     title.textContent = toDo.title;
     titleDiv.appendChild(title);
 
-    // due date
+    // due date / completed date
     let dateDiv = document.createElement("div");
     dateDiv.classList.add("date-div");
     wrapper.appendChild(dateDiv);
 
     let dateTitle = document.createElement("span");
-    dateTitle.textContent = "Due date: ";
+    dateTitle.textContent = toDo.completed === false ? "Due date: " : "Completed on: ";
     dateDiv.appendChild(dateTitle);
 
     let date = document.createElement("span");
-    date.textContent = toDo.dueDate.toDateString();
+
+    // if todo isn't completed on text is red if completed green
+    if (toDo.completed === false && toDo.dueDate > new Date() ) {
+      date.textContent = toDo.dueDate.toDateString();
+    };
+    if (toDo.completed === false && toDo.dueDate < new Date() ) {
+      date.textContent = toDo.dueDate.toDateString();
+      date.style.color = "red";
+      wrapper.style.borderColor = "red";
+      titleDiv.style.background = "#ff000030";
+    };
+    if (toDo.completed !== false ) {
+      date.textContent = toDo.completedOn.toDateString();
+      date.style.color = "green";
+      wrapper.style.borderColor = "green";
+      titleDiv.style.background = "#00ff0030";
+    };
+
+    // date.textContent = toDo.dueDate.toDateString();
     dateDiv.appendChild(date);
 
     // priority
@@ -139,6 +157,52 @@ const DomToDos = (() => {
 
       // create and fill elements inside expanded div
 
+      // completed / pending
+      let completeDiv = document.createElement("div");
+      completeDiv.classList.add("complete-div");
+      expandedToDo.appendChild(completeDiv);
+
+      let completeBtn = document.createElement("div");
+      completeDiv.appendChild(completeBtn);
+      if (toDo.completed === true) {
+        completeBtn.style.boxShadow = "none";
+      };
+
+      let completeTitle = document.createElement("span");
+      completeBtn.appendChild(completeTitle);
+      completeTitle.textContent = "COMPLETE";
+
+      completeBtn.addEventListener("click", (e) => {
+        if (toDo.completed === false) {
+          toDo.completed = true;
+          toDo.completedOn = new Date;
+          toDoDiv.children[0].children[1].children[1].textContent = toDo.completedOn.toDateString();
+          toDoDiv.children[0].children[1].children[0].textContent = "Completed on: ";
+          toDoDiv.children[0].children[1].children[1].style.color = "green";
+          toDoDiv.children[0].style.borderColor = "green";
+          completeBtn.style.boxShadow = "none";
+          toDoDiv.children[0].children[0].style.background = "#00ff0030";
+        } else if (toDo.dueDate < new Date()) {
+          toDo.completed = false;
+          toDo.completedOn = false;
+          toDoDiv.children[0].children[1].children[1].textContent = toDo.dueDate.toDateString();
+          toDoDiv.children[0].children[1].children[0].textContent = "Due date: ";
+          toDoDiv.children[0].children[1].children[1].style.color = "red";
+          toDoDiv.children[0].style.borderColor = "red";
+          completeBtn.style.boxShadow = "#0d324d 2px 3px 4px";
+          toDoDiv.children[0].children[0].style.background = "#ff000030";
+        } else {
+          toDo.completed = false;
+          toDo.completedOn = false;
+          toDoDiv.children[0].children[1].children[1].textContent = toDo.dueDate.toDateString();
+          toDoDiv.children[0].children[1].children[0].textContent = "Due date: ";
+          toDoDiv.children[0].children[1].children[1].style.color = "inherit";
+          toDoDiv.children[0].style.borderColor = "#0d324d";
+          completeBtn.style.boxShadow = "#0d324d 2px 3px 4px";
+          toDoDiv.children[0].children[0].style.background = "none";
+        };
+      });
+
       // description
       let descriptionDiv = document.createElement("div");
       descriptionDiv.classList.add("description-div");
@@ -177,16 +241,6 @@ const DomToDos = (() => {
       let checkList = document.createElement("span");
       checkList.textContent = toDo.checkList;
       checkListDiv.appendChild(checkList);
-
-      // this.title = title;
-      // this.description = description;
-      // this.dueDate = dueDate;
-      // this.priority = priority;
-      // this.notes = notes;
-      // this.checklist = checklist;
-      // this.completed = completed;
-      // this.completedOn = completedOn;
-      // this.project = project;
       
     } else {
       toDoDiv.children[1].remove();
@@ -201,7 +255,8 @@ const DomToDos = (() => {
   const buildToDosByDate = (toDosWithoutOrder) => {
 
     // order toDos by due date and removes completed todos
-    const toDos = _orderToDos(toDosWithoutOrder);
+    // const toDos = _orderToDos(toDosWithoutOrder);
+    const toDos = toDosWithoutOrder;
 
     const contentContainer = document.querySelector(".content-container");
     const content = document.createElement("div");

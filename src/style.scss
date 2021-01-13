@@ -61,15 +61,15 @@ $dark-blue: #0d324d;
   position: relative;
   max-height: 520px;
   padding: 10px 0;
-  border: solid 1px red;
   overflow: hidden; // this fixes overflow of todos from document in the bottom
   .wrapper {
+    // color: rgb(47, 255, 64);
     position: relative;
     z-index: 1;
     width: 200px;
     height: 240px;
     margin: auto;
-    border: solid 1px $dark-blue;
+    border: solid 2px $dark-blue;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -168,6 +168,7 @@ $dark-blue: #0d324d;
     box-shadow: $dark-blue 1px 2px 3px;
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-template-rows: 10% 40% 50%;
     div {
       display: flex;
       flex-direction: column;
@@ -176,6 +177,25 @@ $dark-blue: #0d324d;
         align-self: center;
         font-weight: 600;
         font-size: 18px;
+      }
+    }
+    .complete-div {
+      grid-column: 2 / 3;
+      div {
+        width: 140px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border: outset 3px $dark-blue;
+        border-radius: 8px;
+        background: radial-gradient(at -300% 200%, white, lighten($color: $dark-blue, $amount: 25));
+        box-shadow: $dark-blue 2px 3px 4px;
+        cursor: pointer;
+        &:hover {
+          background: radial-gradient(at 400% 300%, white, lighten($color: $dark-blue, $amount: 35));
+        }
       }
     }
     .description-div {

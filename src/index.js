@@ -80,8 +80,8 @@ todo2.project = project1;
 
 for (let i = 1; i < 10; i++) {
 	new ToDo.ToDoItem();
-  // toodos.push(todo);
 };
+todos[todos.length - 1].dueDate = new Date("2020-1-1");
 
 DomToDos.buildToDosByDate(todos);
 // console.log("test");
