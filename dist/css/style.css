@@ -243,6 +243,56 @@ header .navbar .projects {
   }
 }
 
+.filter-wrapper {
+  width: 200px;
+  height: 200px;
+  margin: 10px auto auto auto;
+  border: solid 1px #0d324d;
+  border-radius: 50%;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+  -webkit-box-shadow: #0d324d 1px 2px 3px;
+          box-shadow: #0d324d 1px 2px 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 1.4rem;
+}
+
+.filter-wrapper div:not(.filter-title) {
+  border: solid 1px #0d324d;
+  margin: 2px;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+  -webkit-box-shadow: #0d324d 1px 2px 3px;
+          box-shadow: #0d324d 1px 2px 3px;
+  cursor: pointer;
+}
+
+.filter-wrapper div:not(.filter-title):hover {
+  background: radial-gradient(at 200% 100%, white, #009fb7);
+}
+
+.filter-wrapper .filter-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.filter-wrapper .filtered {
+  background: radial-gradient(at -200% -100%, white, #0d324d) !important;
+  color: #51e8ff;
+}
+
 .todo-item {
   position: relative;
   max-height: 520px;

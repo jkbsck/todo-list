@@ -7,6 +7,13 @@ const DomToDos = (() => {
     return toDosWithoutOrder.slice().sort((a, b) => a.dueDate - b.dueDate).filter(toDo => toDo.completed === false);  
   };
 
+  // order todos by provided argument
+  const _orderToDosTest = (toDosWithoutOrder, sortBy) => {
+    if (sortBy === "")
+      return toDosWithoutOrder.slice().sort((a, b) => a.dueDate - b.dueDate).filter(toDo => toDo.completed === false);  
+  };
+
+
   // create to do card from toDo object and append it to parent node
   const _buildToDoCard = (parent, toDo) => {
 
@@ -276,11 +283,157 @@ const DomToDos = (() => {
   };
 
   // build html for todos ordered by dueDate
-  const buildToDosByDate = (toDosWithoutOrder) => {
+  const buildToDos = (toDos, filtered = []) => {
 
     // order toDos by due date and removes completed todos
     // const toDos = _orderToDos(toDosWithoutOrder);
-    const toDos = toDosWithoutOrder;
+    // const toDos = toDosWithoutOrder;
+
+    const contentContainer = document.querySelector(".content-container");
+    contentContainer.innerHTML = "";
+    const content = document.createElement("div");
+    contentContainer.appendChild(content);
+    content.classList.add("content");
+
+    // create filter
+    let filterWrapper = document.createElement("div");
+    content.appendChild(filterWrapper);
+    filterWrapper.classList.add("filter-wrapper");
+
+    let filterTitle = document.createElement("div");
+    filterWrapper.appendChild(filterTitle);
+    filterTitle.classList.add("filter-title");
+    filterTitle.textContent = "Filter:";
+
+    // oldest first
+    let sortByOldest = document.createElement("div");
+    filterWrapper.appendChild(sortByOldest);
+    sortByOldest.classList.add("oldest");
+    sortByOldest.textContent = "Old first";
+
+    if (filtered.includes("oldest")) {
+      sortByOldest.classList.toggle("filtered");
+    };
+
+    sortByOldest.addEventListener("click", () => {
+      sortByOldest.classList.toggle("filtered");
+
+      if (filtered.includes("oldest")) { 
+        let i = filtered.indexOf("oldest");
+        filtered.splice(i, 1);
+      } else {
+        filtered.push("oldest");
+      };
+
+      buildToDos(toDos, filtered);
+    });
+
+    // newest first
+    let sortByNewest = document.createElement("div");
+    filterWrapper.appendChild(sortByNewest);
+    sortByNewest.classList.add("newest");
+    sortByNewest.textContent = "New first";
+
+    if (filtered.includes("newest")) {
+      sortByNewest.classList.toggle("filtered");
+    };
+
+    sortByNewest.addEventListener("click", () => {
+      sortByNewest.classList.toggle("filtered");
+
+      if (filtered.includes("newest")) { 
+        let i = filtered.indexOf("newest");
+        filtered.splice(i, 1);
+      } else {
+        filtered.push("newest");
+      };
+
+      buildToDos(toDos, filtered);
+    });
+
+    // completed only
+    let sortByCompleted = document.createElement("div");
+    filterWrapper.appendChild(sortByCompleted);
+    sortByCompleted.classList.add("completed");
+    sortByCompleted.textContent = "Completed only";
+
+    if (filtered.includes("completed")) {
+      sortByCompleted.classList.toggle("filtered");
+    };
+
+    sortByCompleted.addEventListener("click", () => {
+      sortByCompleted.classList.toggle("filtered");
+
+      if (filtered.includes("completed")) { 
+        let i = filtered.indexOf("completed");
+        filtered.splice(i, 1);
+      } else {
+        filtered.push("completed");
+      };
+
+      buildToDos(toDos, filtered);
+    });
+
+    // incompleted only
+    let sortByIncompleted = document.createElement("div");
+    filterWrapper.appendChild(sortByIncompleted);
+    sortByIncompleted.classList.add("incompleted");
+    sortByIncompleted.textContent = "Incompleted only";
+
+    if (filtered.includes("incompleted")) {
+      sortByIncompleted.classList.toggle("filtered");
+    };
+
+    sortByIncompleted.addEventListener("click", () => {
+      sortByIncompleted.classList.toggle("filtered");
+
+      if (filtered.includes("incompleted")) { 
+        let i = filtered.indexOf("incompleted");
+        filtered.splice(i, 1);
+      } else {
+        filtered.push("incompleted");
+      };
+
+      buildToDos(toDos, filtered);
+    });
+
+    // pending only
+    let sortByPending = document.createElement("div");
+    filterWrapper.appendChild(sortByPending);
+    sortByPending.classList.add("pending");
+    sortByPending.textContent = "Pending only";
+
+    if (filtered.includes("pending")) {
+      sortByPending.classList.toggle("filtered");
+    };
+
+    sortByPending.addEventListener("click", () => {
+      sortByPending.classList.toggle("filtered");
+
+      if (filtered.includes("pending")) { 
+        let i = filtered.indexOf("pending");
+        filtered.splice(i, 1);
+      } else {
+        filtered.push("pending");
+      };
+
+      buildToDos(toDos, filtered);
+    });
+
+    for (let i = 0; i < toDos.length; i++) {
+      _buildToDoCard(content, toDos[i]);
+    };
+
+    _buildAddToDoCard(content);
+
+  };
+
+  // build html for todos ordered by dueDate
+  const buildToDosByDate = (toDosWithoutOrder) => {
+
+    // order toDos by due date and removes completed todos
+    const toDos = _orderToDos(toDosWithoutOrder);
+    // const toDos = toDosWithoutOrder;
 
     const contentContainer = document.querySelector(".content-container");
     contentContainer.innerHTML = "";
@@ -497,7 +650,7 @@ const DomToDos = (() => {
 
   };
 
-  return { buildToDosByDate, newToDo };
+  return { buildToDosByDate, newToDo, buildToDos };
 
 })();
 

@@ -56,6 +56,41 @@ $dark-blue: #0d324d;
   }
 }
 
+.filter-wrapper {
+  width: 200px;
+  height: 200px;
+  margin: 10px auto auto auto;
+  border: solid 1px $dark-blue;
+  border-radius: 50%;
+  background: radial-gradient(at -200% -100%, white, $light-blue);
+  box-shadow: $dark-blue 1px 2px 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.4rem;
+  div:not(.filter-title) {
+    border: solid 1px $dark-blue;
+    margin: 2px;
+    padding: 0 5px;
+    border-radius: 8px;
+    background: radial-gradient(at -200% -100%, white, $light-blue);
+    box-shadow: $dark-blue 1px 2px 3px;
+    cursor: pointer;
+    &:hover {
+      background: radial-gradient(at 200% 100%, white, $light-blue);
+    }
+  }
+  .filter-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .filtered {
+    background: radial-gradient(at -200% -100%, white, $dark-blue) !important;
+    color: lighten($light-blue, 30);
+  }
+}
+
 // todo cards layout
 .todo-item {
   position: relative;
