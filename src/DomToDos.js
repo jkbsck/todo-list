@@ -520,12 +520,14 @@ const DomToDos = (() => {
 
   };
 
-  const newToDo = () => {
+  const _newToDo = () => {
+
 
     // keep copy of blank todo
     let toDo = { ..._blankToDo };
 
     const contentContainer = document.querySelector(".content-container");
+    contentContainer.innerHTML = "";
     const newToDoWrapper = document.createElement("div");
     contentContainer.appendChild(newToDoWrapper);
     newToDoWrapper.classList.add("new-todo-wrapper");
@@ -640,6 +642,12 @@ const DomToDos = (() => {
     projectWrapper.appendChild(project);
     project.name = "project";
 
+    // no project option
+    let noProjectDiv = document.createElement("option");
+    project.appendChild(noProjectDiv);
+    noProjectDiv.value = "none";
+    noProjectDiv.textContent = "none";
+
     _projects.forEach(element => {
       let elementDiv = document.createElement("option");
       project.appendChild(elementDiv);
@@ -709,7 +717,7 @@ const DomToDos = (() => {
       toDo.description = description.value;
       toDo.dueDate = dueDate.valueAsDate;
       toDo.priority = document.querySelector('input[name="priority"]:checked').id;
-      toDo.project = _projects.filter( e => e.title === project.value )[0];
+      toDo.project = project.value === "none" ? false : _projects.filter( e => e.title === project.value )[0];
       toDo.notes = notes.value;
       for (let i = 0; i < checkListArray.length; i++) {
         toDo.checklist.push([checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0]);
