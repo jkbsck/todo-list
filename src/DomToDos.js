@@ -283,6 +283,7 @@ const DomToDos = (() => {
     const toDos = toDosWithoutOrder;
 
     const contentContainer = document.querySelector(".content-container");
+    contentContainer.innerHTML = "";
     const content = document.createElement("div");
     contentContainer.appendChild(content);
     content.classList.add("content");
@@ -296,7 +297,7 @@ const DomToDos = (() => {
 
   };
 
-  const newToDo = (toDos, projects) => {
+  const newToDo = (toDo, toDos, projects) => {
 
     const contentContainer = document.querySelector(".content-container");
     const newToDoWrapper = document.createElement("div");
@@ -448,6 +449,8 @@ const DomToDos = (() => {
     let addCheckListItem = document.createElement("div");
     checkListWrapper.appendChild(addCheckListItem);
     addCheckListItem.textContent = "+";
+    let checkListArray = []; // checklist array
+
     addCheckListItem.addEventListener("click", () => {
 
       let checkListItem = document.createElement("div");
@@ -460,6 +463,9 @@ const DomToDos = (() => {
       let checkBox = document.createElement("input");
       checkListItem.appendChild(checkBox);
       checkBox.type = "checkbox";
+
+      // inserts every checklist item into checklist array
+      checkListArray.push([checkBoxTitle.value, checkBox.value]);
 
     });
 
@@ -474,9 +480,19 @@ const DomToDos = (() => {
     submitBtnWrapper.appendChild(submitBtn);
     submitBtn.textContent = "Save";
     submitBtn.addEventListener("click", () => {
-      // console.log(priority);
-      // alert(document.querySelector('input[name="priority"]:checked').id);
-      alert(project.value);
+
+      toDo.title = title.value;
+      toDo.description = description.value;
+      toDo.dueDate = dueDate.valueAsDate;
+      toDo.priority = document.querySelector('input[name="priority"]:checked').id;
+      toDo.project = projects.filter( e => e.title === project.value )[0];
+      toDo.notes = notes.value;
+      for (let i = 0; i < checkListArray.length; i++) {
+        toDo.checklist.push([checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0]);
+      }
+
+      buildToDosByDate(toDos);
+      // console.log(toDo.project[0]);
     });
 
   };
