@@ -141,7 +141,7 @@ const DomToDos = (() => {
   };
 
   // create last card as an add new card button
-  const _buildAddToDoCard = (parent) => {
+  const _buildAddToDoCard = (parent, blankToDo, toDos, projects) => {
 
     // card container
     let toDo = document.createElement("div");
@@ -168,6 +168,14 @@ const DomToDos = (() => {
 
     wrapper.addEventListener("mouseleave", () => {
       add.classList.add("hidden");
+    });
+
+    // event listener for new todo form
+    wrapper.addEventListener("click", () => {
+      let toDoCopy = { ...blankToDo };
+      // console.log(toDoCopy);
+
+      newToDo(toDoCopy, toDos, projects);
     });
 
   };
@@ -311,6 +319,11 @@ const DomToDos = (() => {
     };
   };
 
+  // add event listeners to navbar elements
+  const _addEventListenersToNavbar = () => {
+    // to be continued
+  };
+
   // create filter div and assign event listeners
   const _addFilterDiv = (content, filtered, toDos) => {
 
@@ -380,6 +393,7 @@ const DomToDos = (() => {
       }
 
       buildToDos(toDos, filtered);
+
     });
 
     // completed only
@@ -432,10 +446,6 @@ const DomToDos = (() => {
     let sortByPending = document.createElement("div");
     filterWrapper.appendChild(sortByPending);
 
-    // defaultly active
-    // sortByPending.classList.add("pending", "filtered");
-    // filtered.push("pending");
-
     sortByPending.textContent = "Pending";
 
     if (filtered.includes("pending")) {
@@ -456,18 +466,42 @@ const DomToDos = (() => {
     });
   };
 
-  // build html for todos ordered by dueDate
-  const buildToDos = (toDosWithoutOrder, filtered = []) => {
+  // original todos
+  const _toDos = [];
+  
+  // original projects
+  const _projects = [];
+
+  // blank todo
+  const _blankToDo = {};
+
+  // build html for todos ordered by oldest showing only pending todos - blankToDo is for creation of new todos inside of this module, toDosWithoutOrder is a complete array of todos, toDos only filtered copy
+  const buildToDos = (toDosWithoutOrder, projects, blankToDo, filtered = ["oldest", "pending"]) => {
+
+    // remove blankToDo from array of todos - it's for creation of new ones
+    if (toDosWithoutOrder[toDosWithoutOrder.length - 1].title === "blank") {
+      _blankToDo = toDosWithoutOrder.pop();
+    };
+
+    // assign original todos
+    _toDos = toDosWithoutOrder;
+
+    // assign original projects
+    _projects = projects;
 
     // order toDos by due date and removes completed todos
     // const toDos = _orderToDos(toDosWithoutOrder);
     // const toDos = toDosWithoutOrder;
 
+    // select content container and create container with todos content
     const contentContainer = document.querySelector(".content-container");
     contentContainer.innerHTML = "";
     const content = document.createElement("div");
     contentContainer.appendChild(content);
     content.classList.add("content");
+
+    // add event listeners to navbar elements
+    _addEventListenersToNavbar();
 
     // filter by selection
     _addFilterDiv(content, filtered, toDosWithoutOrder);
@@ -479,11 +513,11 @@ const DomToDos = (() => {
       _buildToDoCard(content, toDos[i]);
     };
 
-    _buildAddToDoCard(content);
+    _buildAddToDoCard(content, blankToDo, toDosWithoutOrder, projects);
 
   };
 
-  // build html for todos ordered by dueDate
+  // build html for todos ordered by dueDate - this is temporary
   const buildToDosByDate = (toDosWithoutOrder) => {
 
     // order toDos by due date and removes completed todos
@@ -506,6 +540,9 @@ const DomToDos = (() => {
   };
 
   const newToDo = (toDo, toDos, projects) => {
+
+    // keep copy of blank todo
+    let blankToDo = { ...toDo };
 
     const contentContainer = document.querySelector(".content-container");
     const newToDoWrapper = document.createElement("div");
@@ -677,8 +714,6 @@ const DomToDos = (() => {
 
     });
 
-      
-
     // submit button
     let submitBtnWrapper = document.createElement("div");
     newToDoWrapper.appendChild(submitBtnWrapper);
@@ -699,7 +734,10 @@ const DomToDos = (() => {
         toDo.checklist.push([checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0]);
       }
 
-      buildToDosByDate(toDos);
+      toDos.push(toDo);
+      console.log(toDos[toDos.length - 1]);
+
+      buildToDos(toDos, projects, blankToDo);
       // console.log(toDo.project[0]);
     });
 
