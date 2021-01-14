@@ -312,7 +312,25 @@ const DomToDos = (() => {
 
   // add event listeners to navbar elements
   const _addEventListenersToNavbar = () => {
-    // to be continued
+    let newTodo = document.querySelector(".new-todo");
+    newTodo.addEventListener("click", () => {
+      _newToDo();
+    });
+
+    let todos = document.querySelector(".todos");
+    todos.addEventListener("click", () => {
+      _buildToDos();
+    });
+
+    let newProject = document.querySelector(".new-project");
+    newProject.addEventListener("click", () => {
+      _newProject();
+    });
+
+    let projects = document.querySelector(".projects");
+    projects.addEventListener("click", () => {
+      _buildProjects();
+    });
   };
 
   // create filter div and assign event listeners
@@ -479,16 +497,21 @@ const DomToDos = (() => {
   // blank todo
   let _blankToDo = {};
 
+  // blank todo
+  let _blankProject = {};
+
   // variable for content container
   let _content;
 
-  const start = (todos, projects, blankToDo) => {
+  const start = (todos, projects, blankToDo, blankProject) => {
 
     todos.pop(); // detach blankToDo from todos array
+    projects.pop(); // detach blankProject from projects array
 
     _toDos = todos;
     _projects = projects;
     _blankToDo = blankToDo;
+    _blankProject = blankProject;
 
     // add event listeners to navbar elements
     _addEventListenersToNavbar();
@@ -520,8 +543,8 @@ const DomToDos = (() => {
 
   };
 
+  // new todo form
   const _newToDo = () => {
-
 
     // keep copy of blank todo
     let toDo = { ..._blankToDo };
@@ -724,9 +747,105 @@ const DomToDos = (() => {
       }
 
       _toDos.push(toDo);
-      // console.log(toDos[toDos.length - 1]);
 
       _buildToDos();
+    });
+
+  };
+
+  // build projects
+  const _buildProjects = () => {
+    const contentContainer = document.querySelector(".content-container");
+    contentContainer.innerHTML = "";
+  };
+
+  // new project form
+  const _newProject = () => {
+
+    // keep copy of a blank project
+    let project = { ..._blankProject };
+
+    const contentContainer = document.querySelector(".content-container");
+    contentContainer.innerHTML = "";
+    const newProjectWrapper = document.createElement("div");
+    contentContainer.appendChild(newProjectWrapper);
+    newProjectWrapper.classList.add("new-project-wrapper");
+    
+    let wrapper = document.createElement("div");
+    newProjectWrapper.appendChild(wrapper);
+    wrapper.classList.add("wrapper");
+
+    // title
+    let titleWrapper = document.createElement("div");
+    wrapper.appendChild(titleWrapper);
+    titleWrapper.classList.add("title-wrapper");
+
+    let titleLabel = document.createElement("span");
+    titleWrapper.appendChild(titleLabel);
+    titleLabel.textContent = "Title: ";
+
+    let title = document.createElement("input");
+    titleWrapper.appendChild(title);
+    title.type = "text";
+    title.value = "Project";
+
+    // description
+    let descriptionWrapper = document.createElement("div");
+    wrapper.appendChild(descriptionWrapper);
+    descriptionWrapper.classList.add("description-wrapper");
+
+    let descriptionLabel = document.createElement("span");
+    descriptionWrapper.appendChild(descriptionLabel);
+    descriptionLabel.textContent = "Description: ";
+
+    let description = document.createElement("input");
+    descriptionWrapper.appendChild(description);
+    description.type = "text";
+    description.value = "Description";
+
+    // to do items
+    let toDoItemsWrapper = document.createElement("div");
+    wrapper.appendChild(toDoItemsWrapper);
+    toDoItemsWrapper.classList.add("to-do-items-wrapper");
+
+    let toDoItemsLabel = document.createElement("span");
+    toDoItemsWrapper.appendChild(toDoItemsLabel);
+    toDoItemsLabel.textContent = "To Do items: ";
+
+    let toDoItems = document.createElement("select");
+    toDoItemsWrapper.appendChild(toDoItems);
+    toDoItems.name = "to-do-items";
+    toDoItems.multiple = true;
+
+    _toDos.forEach(element => {
+      let elementDiv = document.createElement("option");
+      toDoItems.appendChild(elementDiv);
+      elementDiv.value = element.title;
+      elementDiv.textContent = element.title;
+    });
+
+    // submit button
+    let submitBtnWrapper = document.createElement("div");
+    newProjectWrapper.appendChild(submitBtnWrapper);
+    submitBtnWrapper.classList.add("submit-btn-wrapper");
+
+    let submitBtn = document.createElement("div");
+    submitBtnWrapper.appendChild(submitBtn);
+    submitBtn.textContent = "Save";
+    submitBtn.addEventListener("click", () => {
+
+      project.title = title.value;
+      project.description = description.value;
+      
+      for (let i = 0; i < toDoItems.children.length; i++) {
+        if (toDoItems.children[i].selected) {
+          project.toDoItems.push(_toDos[i]);
+        }
+      };
+
+      _projects.push(project);
+
+      _buildProjects();
     });
 
   };
