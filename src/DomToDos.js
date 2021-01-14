@@ -8,9 +8,38 @@ const DomToDos = (() => {
   };
 
   // order todos by provided argument
-  const _orderToDosTest = (toDosWithoutOrder, sortBy) => {
-    if (sortBy === "")
-      return toDosWithoutOrder.slice().sort((a, b) => a.dueDate - b.dueDate).filter(toDo => toDo.completed === false);  
+  const _sortToDos = (toDosWithoutOrder, filtered) => {
+    
+    let toDos = [...toDosWithoutOrder];
+
+    // sort by oldest first (dueDate not completedOn)
+    if (filtered.includes("oldest")){
+      toDos = toDos.slice().sort((a, b) => a.dueDate - b.dueDate);
+    };
+
+    // sort by newest first (dueDate not completedOn)
+    if (filtered.includes("newest")){
+      toDos = toDos.slice().sort((a, b) => b.dueDate - a.dueDate);
+    };
+
+    // filter
+    if (filtered.includes("completed") && filtered.includes("incompleted") && filtered.includes("pending")) {
+      ;
+    } else if (filtered.includes("completed") && filtered.includes("incompleted")){
+      toDos = toDos.slice().filter(toDo => toDo.completed === true || toDo.dueDate < new Date());
+    } else if (filtered.includes("completed") && filtered.includes("pending")) {
+      toDos = toDos.slice().filter(toDo => toDo.completed === true || toDo.dueDate > new Date());
+    } else if (filtered.includes("incompleted") && filtered.includes("pending")) {
+      toDos = toDos.slice().filter(toDo => toDo.completed === false);
+    } else if (filtered.includes("completed")){
+      toDos = toDos.slice().filter(toDo => toDo.completed === true);
+    } else if (filtered.includes("incompleted")){
+      toDos = toDos.slice().filter(toDo => toDo.dueDate < new Date());
+    } else if (filtered.includes("pending")){
+      toDos = toDos.slice().filter(toDo => toDo.completed === false && toDo.dueDate > new Date());
+    };
+
+    return toDos;
   };
 
 
@@ -282,18 +311,8 @@ const DomToDos = (() => {
     };
   };
 
-  // build html for todos ordered by dueDate
-  const buildToDos = (toDos, filtered = []) => {
-
-    // order toDos by due date and removes completed todos
-    // const toDos = _orderToDos(toDosWithoutOrder);
-    // const toDos = toDosWithoutOrder;
-
-    const contentContainer = document.querySelector(".content-container");
-    contentContainer.innerHTML = "";
-    const content = document.createElement("div");
-    contentContainer.appendChild(content);
-    content.classList.add("content");
+  // create filter div and assign event listeners
+  const _addFilterDiv = (content, filtered, toDos) => {
 
     // create filter
     let filterWrapper = document.createElement("div");
@@ -325,6 +344,12 @@ const DomToDos = (() => {
         filtered.push("oldest");
       };
 
+      // oldest and newest filter at the same time doesn't make sense
+      if (filtered.includes("newest")) { 
+        let i = filtered.indexOf("newest");
+        filtered.splice(i, 1);
+      }
+
       buildToDos(toDos, filtered);
     });
 
@@ -348,6 +373,12 @@ const DomToDos = (() => {
         filtered.push("newest");
       };
 
+      // oldest and newest filter at the same time doesn't make sense
+      if (filtered.includes("oldest")) { 
+        let i = filtered.indexOf("oldest");
+        filtered.splice(i, 1);
+      }
+
       buildToDos(toDos, filtered);
     });
 
@@ -355,7 +386,7 @@ const DomToDos = (() => {
     let sortByCompleted = document.createElement("div");
     filterWrapper.appendChild(sortByCompleted);
     sortByCompleted.classList.add("completed");
-    sortByCompleted.textContent = "Completed only";
+    sortByCompleted.textContent = "Completed";
 
     if (filtered.includes("completed")) {
       sortByCompleted.classList.toggle("filtered");
@@ -378,7 +409,7 @@ const DomToDos = (() => {
     let sortByIncompleted = document.createElement("div");
     filterWrapper.appendChild(sortByIncompleted);
     sortByIncompleted.classList.add("incompleted");
-    sortByIncompleted.textContent = "Incompleted only";
+    sortByIncompleted.textContent = "Incompleted";
 
     if (filtered.includes("incompleted")) {
       sortByIncompleted.classList.toggle("filtered");
@@ -400,8 +431,12 @@ const DomToDos = (() => {
     // pending only
     let sortByPending = document.createElement("div");
     filterWrapper.appendChild(sortByPending);
-    sortByPending.classList.add("pending");
-    sortByPending.textContent = "Pending only";
+
+    // defaultly active
+    // sortByPending.classList.add("pending", "filtered");
+    // filtered.push("pending");
+
+    sortByPending.textContent = "Pending";
 
     if (filtered.includes("pending")) {
       sortByPending.classList.toggle("filtered");
@@ -419,6 +454,26 @@ const DomToDos = (() => {
 
       buildToDos(toDos, filtered);
     });
+  };
+
+  // build html for todos ordered by dueDate
+  const buildToDos = (toDosWithoutOrder, filtered = []) => {
+
+    // order toDos by due date and removes completed todos
+    // const toDos = _orderToDos(toDosWithoutOrder);
+    // const toDos = toDosWithoutOrder;
+
+    const contentContainer = document.querySelector(".content-container");
+    contentContainer.innerHTML = "";
+    const content = document.createElement("div");
+    contentContainer.appendChild(content);
+    content.classList.add("content");
+
+    // filter by selection
+    _addFilterDiv(content, filtered, toDosWithoutOrder);
+
+    // sort todos by filter params
+    let toDos = _sortToDos(toDosWithoutOrder, filtered);
 
     for (let i = 0; i < toDos.length; i++) {
       _buildToDoCard(content, toDos[i]);
