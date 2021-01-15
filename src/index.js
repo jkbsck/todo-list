@@ -67,16 +67,20 @@ let todo3 = new ToDo.ToDoItem("Learn programming", "Learn at least 5 programming
 // console.log(todo1);
 
 let project1 = new ToDo.ToDoProject("House renovation", "Steb by step revonation of my house.", );
+project1.toDoItems.push(todo4);
+project1.toDoItems.push(todo2);
 // console.log(project1);
 
 let todos = ToDo.toDos;
 let projects = ToDo.projects;
 // console.log(projects[1]);
 let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
+project2.toDoItems.push(todo3);
 // console.log(projects[1]);
 
 todo4.project = project1;
 todo2.project = project1;
+todo3.project = project2;
 
 for (let i = 1; i < 10; i++) {
 	new ToDo.ToDoItem();

@@ -1,0 +1,227 @@
+// filter wrapper - for now used only with todos
+.filter-wrapper {
+  width: 200px;
+  height: 200px;
+  margin: 10px auto auto auto;
+  border: solid 1px $dark-blue;
+  border-radius: 50%;
+  background: radial-gradient(at -200% -100%, white, $light-blue);
+  box-shadow: $dark-blue 1px 2px 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.4rem;
+  div:not(.filter-title) {
+    border: solid 1px $dark-blue;
+    margin: 2px;
+    padding: 0 5px;
+    border-radius: 8px;
+    background: radial-gradient(at -200% -100%, white, $light-blue);
+    box-shadow: $dark-blue 1px 2px 3px;
+    cursor: pointer;
+    &:hover {
+      background: radial-gradient(at 200% 100%, white, $light-blue);
+    }
+  }
+  .filter-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .filtered {
+    background: radial-gradient(at -200% -100%, white, $dark-blue) !important;
+    color: lighten($light-blue, 30);
+  }
+}
+
+// todo cards layout
+.todo-item {
+  position: relative;
+  max-height: 520px;
+  padding: 10px 0;
+  overflow: hidden; // this fixes overflow of todos from document in the bottom
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    width: 200px;
+    height: 240px;
+    margin: auto;
+    border: solid 2px $dark-blue;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    background: radial-gradient(at -200% -100%, white, $light-blue);
+    box-shadow: $dark-blue 1px 2px 3px;
+    &:hover {
+      background: radial-gradient(at 300% 200%, white, $light-blue);
+      box-shadow: $dark-blue 2px 3px 4px;
+    }
+    
+    // menu btn
+    .menu-btn {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50% 25% 25% 50%;
+      border: solid 1px $dark-blue;
+      top: 5px;
+      right: -10px;
+      box-shadow: $dark-blue -1px 1px 2px;
+      background: radial-gradient(at -200% -100%, white, $light-blue);
+      cursor: pointer;
+      &:hover {
+        background: radial-gradient(at 500% 400%, white, $light-blue);
+      }
+      div {
+        width: 20px;
+        height: 0;
+        border: solid 3px $dark-blue;
+        background: $dark-blue;
+        margin: .1rem;
+        border-radius: 2px;
+      }
+    }
+
+    .menu-btn-expanded {
+      right: -210px;
+      :nth-child(1) {
+        transform: rotate(45deg);
+        margin-bottom: -.18rem;
+        margin-left: .2rem;
+      }
+      :nth-child(2) {
+        transform: rotate(-45deg);
+        margin-top: -.1rem;
+        margin-left: .2rem;
+      }
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      text-align: center;
+      word-break: break-word;
+      line-height: 1.2rem;
+      :nth-child(2) {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+    .title-div {
+      flex-basis: 100%;
+      height: 35%;
+      font-size: 24px;
+      border-bottom: solid 1px $dark-blue;
+    }
+    .date-div {
+      flex-basis: 100%;
+      height: 30%;
+    }
+    .priority-div {
+      flex-basis: 40%;
+      height: 35%;
+    }
+    .project-div {
+      flex-basis: 60%;
+      height: 35%;
+    }
+  }
+
+  .expanded-todo {
+    width: 400px;
+    height: 480px;
+    position: relative;
+    top: -240px;
+    margin: 0 auto;
+    border: solid 1px $dark-blue;
+    border-radius: 10px;
+    background: radial-gradient(at -200% -100%, white, $light-blue);
+    box-shadow: $dark-blue 1px 2px 3px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 10% 40% 50%;
+    & > div {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      :first-child {
+        align-self: center;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+    .complete-div {
+      grid-column: 2 / 3;
+      div {
+        width: 140px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border: outset 3px $dark-blue;
+        border-radius: 8px;
+        background: radial-gradient(at -300% 200%, white, lighten($color: $dark-blue, $amount: 25));
+        box-shadow: $dark-blue 2px 3px 4px;
+        cursor: pointer;
+        &:hover {
+          background: radial-gradient(at 400% 300%, white, lighten($color: $dark-blue, $amount: 35));
+        }
+      }
+    }
+    .description-div {
+      grid-column: 2 / 3;
+    }
+    .checklist-div {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+      display: flex;
+      flex-direction: column;
+      .checklist-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        div {
+          height: 28px !important;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          font-size: 14px;
+          :nth-child(1) {
+            height: 20px !important;
+            width: 24px !important;
+            border: solid 3px $dark-blue;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            font-size: 28px;
+            color: $light-blue;
+            background: $dark-blue;
+            cursor: pointer;
+          }
+          :nth-child(2) {
+            height: 16px !important;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-weight: initial;
+          }
+        }
+      }
+    }
+  }
+
+  .wrapper-expanded {
+    margin-right: 50%;
+  }
+}

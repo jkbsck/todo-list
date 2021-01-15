@@ -749,7 +749,14 @@ const DomToDos = (() => {
       toDo.description = description.value;
       toDo.dueDate = dueDate.valueAsDate;
       toDo.priority = document.querySelector('input[name="priority"]:checked').id;
-      toDo.project = project.value === "none" ? false : _projects.filter( e => e.title === project.value )[0];
+
+      if (project.value === "none") {
+        toDo.project = false;
+      } else {
+        toDo.project =  _projects.filter( e => e.title === project.value )[0];
+        toDo.project.toDoItems.push(toDo);
+      };
+
       toDo.notes = notes.value;
       for (let i = 0; i < checkListArray.length; i++) {
         toDo.checklist.push([checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0]);
@@ -769,7 +776,7 @@ const DomToDos = (() => {
   const _buildProjects = () => {
 
     // empties, creates and assign content container for all content (not navbar etc.)
-    _content = _createContentContainer("projects-wrapper");
+    _content = _createContentContainer("content");
 
     // creates project cards
     for (let i = 0; i < _projects.length; i++) {
@@ -808,6 +815,10 @@ const DomToDos = (() => {
     descriptionDiv.classList.add("description-div");
     wrapper.appendChild(descriptionDiv);
 
+    let descriptionTitle = document.createElement("span");
+    descriptionTitle.textContent = "Description: ";
+    descriptionDiv.appendChild(descriptionTitle);
+
     let description = document.createElement("span");
     description.textContent = project.description;
     descriptionDiv.appendChild(description);
@@ -817,10 +828,36 @@ const DomToDos = (() => {
     toDosDiv.classList.add("todos-div");
     wrapper.appendChild(toDosDiv);
 
+    let toDosWrapper = document.createElement("div");
+    toDosDiv.appendChild(toDosWrapper);
+
+    let toDosTitle = document.createElement("span");
+    toDosTitle.textContent = "ToDos: ";
+    toDosWrapper.appendChild(toDosTitle);
+
+    let dueDateTitle = document.createElement("span");
+    dueDateTitle.textContent = "Due date: ";
+    toDosWrapper.appendChild(dueDateTitle);
+
     project.toDoItems.forEach(toDo => {
       let toDoDiv = document.createElement("div");
-      toDoDiv.textContent = toDo.title;
       toDosDiv.appendChild(toDoDiv);
+
+      let toDoTitle = document.createElement("span");
+      toDoTitle.textContent = toDo.title;
+      toDoDiv.appendChild(toDoTitle);
+
+      let toDoState = document.createElement("span");
+      toDoState.textContent = toDo.dueDate.toDateString();
+      toDoDiv.appendChild(toDoState);
+
+      if (toDo.dueDate < new Date()) {
+        toDoState.style.color = "red";
+      };
+
+      if (toDo.completed === true) {
+        toDoState.style.color = "green";
+      };
     });
 
   };
