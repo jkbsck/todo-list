@@ -282,36 +282,36 @@ $dark-blue: #0d324d;
   .wrapper-expanded {
     margin-right: 50%;
   }
+}
 
-  // add new to do item button
-  .add-todo {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 100px;
-    font-weight: 600;
-    color: transparentize($color: $dark-blue, $amount: 0.2);
-    background: radial-gradient(at 300% 200%, white, lighten($color: $light-blue, $amount: 15));
-    text-shadow: $dark-blue 0px 0px 1px;
-    cursor: pointer;
-    transition: color .25s;
-    :nth-child(2) {
-      font-size: 32px;
-      font-weight: 500;
-    }
-    &:hover {
-      text-shadow: none;
-      color: $dark-blue;
-      background: radial-gradient(at -300% -200%, white, lighten($color: $light-blue, $amount: 15));
-      box-shadow: $dark-blue 2px 3px 4px;
-      font-weight: 700;
-      line-height: 40px;
-      :nth-child(1) {
-        transition: scale .4s;
-        scale: 1.05;
-        transition: transform .6s ease;
-        transform: rotate(180deg);
-      }
+// add new card item button
+.add-card {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+  font-weight: 600;
+  color: transparentize($color: $dark-blue, $amount: 0.2);
+  background: radial-gradient(at 300% 200%, white, lighten($color: $light-blue, $amount: 15));
+  text-shadow: $dark-blue 0px 0px 1px;
+  cursor: pointer;
+  transition: color .25s;
+  :nth-child(2) {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  &:hover {
+    text-shadow: none;
+    color: $dark-blue;
+    background: radial-gradient(at -300% -200%, white, lighten($color: $light-blue, $amount: 15));
+    box-shadow: $dark-blue 2px 3px 4px;
+    font-weight: 700;
+    line-height: 40px;
+    :nth-child(1) {
+      transition: scale .4s;
+      scale: 1.05;
+      transition: transform .6s ease;
+      transform: rotate(180deg);
     }
   }
 }

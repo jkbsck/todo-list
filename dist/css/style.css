@@ -590,7 +590,7 @@ header .navbar .projects {
   margin-right: 50%;
 }
 
-.todo-item .add-todo {
+.add-card {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -611,12 +611,12 @@ header .navbar .projects {
   transition: color .25s;
 }
 
-.todo-item .add-todo :nth-child(2) {
+.add-card :nth-child(2) {
   font-size: 32px;
   font-weight: 500;
 }
 
-.todo-item .add-todo:hover {
+.add-card:hover {
   text-shadow: none;
   color: #0d324d;
   background: radial-gradient(at -300% -200%, white, #05deff);
@@ -626,7 +626,7 @@ header .navbar .projects {
   line-height: 40px;
 }
 
-.todo-item .add-todo:hover :nth-child(1) {
+.add-card:hover :nth-child(1) {
   -webkit-transition: scale .4s;
   transition: scale .4s;
   scale: 1.05;
