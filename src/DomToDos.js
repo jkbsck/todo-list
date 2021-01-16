@@ -37,8 +37,9 @@ const DomToDos = (() => {
     _addEventListenersToNavbar();
 
     // build default todos list
-    _buildToDos();
+    // _buildToDos();
     // _buildProjects();
+    _newToDo();
 
   };
 
@@ -580,11 +581,11 @@ const DomToDos = (() => {
     
     let wrapperOne = document.createElement("div");
     _content.appendChild(wrapperOne);
-    wrapperOne.classList.add("wrapper-one");
+    wrapperOne.classList.add("wrapper-one", "new-todo-subwrapper");
 
     let wrapperTwo = document.createElement("div");
     _content.appendChild(wrapperTwo);
-    wrapperTwo.classList.add("wrapper-two");
+    wrapperTwo.classList.add("wrapper-two", "new-todo-subwrapper");
 
     // first form div content
     // title

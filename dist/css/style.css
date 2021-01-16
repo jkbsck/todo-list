@@ -202,8 +202,7 @@ header .navbar .projects {
 
 .new-todo-wrapper {
   width: 90%;
-  min-height: 400px;
-  margin: 20px auto auto auto;
+  margin: 20px auto 20px auto;
   padding: 10px;
   background: radial-gradient(at -200% -100%, white, #009fb7);
   display: -webkit-box;
@@ -214,13 +213,88 @@ header .navbar .projects {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border: solid 1px #0d324d;
+  border-radius: 10px;
+  -webkit-box-shadow: #0d324d 1px 2px 3px;
+          box-shadow: #0d324d 1px 2px 3px;
+}
+
+.new-todo-wrapper input, .new-todo-wrapper select {
+  border-radius: 5px;
+  background: #b7f6ff;
 }
 
 .new-todo-wrapper > div {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 400px;
           flex: 0 1 400px;
-  border: solid 1px red;
+}
+
+.new-todo-wrapper .new-todo-subwrapper {
+  margin: 0 auto;
+}
+
+.new-todo-wrapper .new-todo-subwrapper > div {
+  margin: 35px 6%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.new-todo-wrapper .new-todo-subwrapper > div > :first-child {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .priority-wrapper > :nth-child(2) span {
+  padding-left: 15px;
+  padding-right: 5px;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .priority-wrapper > :nth-child(2) input {
+  position: relative;
+  top: 5px;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .check-list-wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .check-list-wrapper > div:not(:first-child) {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .check-list-wrapper > div:not(:first-child) input {
+  margin: 10px;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .check-list-wrapper > div:not(:first-child) :nth-child(2) {
+  position: relative;
+  top: 3px;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .check-list-wrapper > :last-child {
+  font-size: 32px;
+  font-weight: 700;
+  position: absolute;
+  right: 10px;
+  top: -12px;
+  cursor: pointer;
+}
+
+.new-todo-wrapper .new-todo-subwrapper .check-list-wrapper > :last-child:hover {
+  color: #114063;
 }
 
 .new-todo-wrapper .submit-btn-wrapper {

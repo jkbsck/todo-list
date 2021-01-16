@@ -1,16 +1,72 @@
 // new todo form
 .new-todo-wrapper {
   width: 90%;
-  min-height: 400px; // temporary
-  margin: 20px auto auto auto;
+  margin: 20px auto 20px auto;
   padding: 10px;
   background: radial-gradient(at -200% -100%, white, $light-blue);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  border: solid 1px $dark-blue;
+  border-radius: 10px;
+  box-shadow: $dark-blue 1px 2px 3px;
+  input, select {
+    border-radius: 5px;
+    background: lighten($color: $light-blue, $amount: 50);
+  }
   & > div {
     flex: 0 1 400px;
-    border: solid 1px red;
+
+  }
+  .new-todo-subwrapper {
+    margin: 0 auto;
+    & > div {
+      margin: 35px 6%;
+      display: flex;
+      justify-content: space-between;
+      & > :first-child {
+        font-weight: 600;
+        font-size: 20px;
+      }
+    }
+    .priority-wrapper {
+      & > :nth-child(2) {
+        span {  
+          padding-left: 15px;
+          padding-right: 5px;
+        }
+        input {
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+    .check-list-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      & > div:not(:first-child) {
+        align-self: flex-end;
+        input {
+          margin: 10px;
+        }
+        :nth-child(2) {
+          position: relative;
+          top: 3px;
+        }
+      }
+      & > :last-child {
+        font-size: 32px;
+        font-weight: 700;
+        position: absolute;
+        right: 10px;
+        top: -12px;
+        cursor: pointer;
+        &:hover {
+          color: lighten($color: $dark-blue, $amount: 5); 
+        }
+      }
+    }
   }
   .submit-btn-wrapper {
     flex: 0 0 100%;
