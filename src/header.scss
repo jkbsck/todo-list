@@ -65,10 +65,22 @@ header {
       &:hover {
         border-color: $dark-blue;
         background: radial-gradient(at 100px 100px, white, $light-blue);
+        color: inherit;
         font-weight: 700;
         box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
       }
 
+    }
+    .navbar-active {
+      border-color: $dark-blue;
+      background: radial-gradient(at 200px 200px, white, $dark-blue);
+      color: lighten($light-blue, 40);
+      font-weight: 700;
+      box-shadow: $light-blue 0px 0px 10px;
+      &:hover {
+        background: radial-gradient(at -100px -100px, white, $dark-blue);
+        color: lighten($light-blue, 40);
+      }
     }
     .new-todo {
       height: 70px;

@@ -37,32 +37,45 @@ const DomToDos = (() => {
     _addEventListenersToNavbar();
 
     // build default todos list
-    // _buildToDos();
-    _buildProjects();
+    _buildToDos();
+    // _buildProjects();
 
   };
 
   // add event listeners to navbar elements
   const _addEventListenersToNavbar = () => {
+
     let newTodo = document.querySelector(".new-todo");
     newTodo.addEventListener("click", () => {
+      activeToggle(newTodo);
       _newToDo();
     });
 
     let todos = document.querySelector(".todos");
     todos.addEventListener("click", () => {
+      activeToggle(todos);
       _buildToDos();
     });
 
     let newProject = document.querySelector(".new-project");
     newProject.addEventListener("click", () => {
+      activeToggle(newProject);
       _newProject();
     });
 
     let projects = document.querySelector(".projects");
     projects.addEventListener("click", () => {
+      activeToggle(projects);
       _buildProjects();
     });
+
+    const activeToggle = (element) => {
+      let navbarElements = document.querySelectorAll(".navbar-item");
+      navbarElements.forEach(e => {
+        e === element ? e.classList.add("navbar-active") : e.classList.remove("navbar-active");
+      });
+    };
+
   };
 
   // content container creation - argument is name of child's class
@@ -81,7 +94,8 @@ const DomToDos = (() => {
 
     // card container
     let toDo = document.createElement("div");
-    toDo.classList.add("todo-item"); // style will be same as for todo card also for project
+     // style will be same as for todo card also for project
+    toDo.classList.add(arg === "todo" ? "todo-item" : "project-item");
     _content.appendChild(toDo);
 
     // wrapper inside of card container

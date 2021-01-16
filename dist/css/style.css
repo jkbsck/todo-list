@@ -93,9 +93,24 @@ header .navbar .navbar-item {
 header .navbar .navbar-item:hover {
   border-color: #0d324d;
   background: radial-gradient(at 100px 100px, white, #009fb7);
+  color: inherit;
   font-weight: 700;
   -webkit-box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
           box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+header .navbar .navbar-active {
+  border-color: #0d324d;
+  background: radial-gradient(at 200px 200px, white, #0d324d);
+  color: #84efff;
+  font-weight: 700;
+  -webkit-box-shadow: #009fb7 0px 0px 10px;
+          box-shadow: #009fb7 0px 0px 10px;
+}
+
+header .navbar .navbar-active:hover {
+  background: radial-gradient(at -100px -100px, white, #0d324d);
+  color: #84efff;
 }
 
 header .navbar .new-todo {
@@ -746,6 +761,12 @@ header .navbar .projects {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.project-item .add-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .add-card {

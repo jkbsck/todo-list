@@ -63,10 +63,6 @@ $dark-blue: #0d324d;
   grid-column: span 2;
   padding: 10px 0;
   .wrapper {
-    &:hover {
-      background: radial-gradient(at 300% 200%, white, $light-blue);
-      box-shadow: $dark-blue 2px 3px 4px;
-    }
     width: 400px;
     height: 480px;
     position: relative;
@@ -78,6 +74,10 @@ $dark-blue: #0d324d;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 10% 30% 60%;
+    &:hover {
+      background: radial-gradient(at 300% 200%, white, $light-blue);
+      box-shadow: $dark-blue 2px 3px 4px;
+    }
     & > div {
       // border: solid 1px red;
       display: flex;
@@ -111,6 +111,9 @@ $dark-blue: #0d324d;
         justify-content: space-between;
       }
     }
+  }
+  .add-card {
+    display: flex;
   }
 }
 
