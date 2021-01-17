@@ -819,6 +819,16 @@ header .navbar .projects {
           justify-content: space-between;
 }
 
+.project-item .wrapper .edit-btn {
+  top: 5px;
+  right: -10px;
+}
+
+.project-item .wrapper .delete-btn {
+  top: 45px;
+  right: -10px;
+}
+
 .project-item .add-card {
   display: -webkit-box;
   display: -ms-flexbox;

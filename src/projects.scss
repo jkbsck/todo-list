@@ -52,6 +52,16 @@
         justify-content: space-between;
       }
     }
+    .edit-btn {
+      // background: red;
+      top: 5px;
+      right: -10px;
+    }
+    .delete-btn {
+      // background: green;
+      top: 45px;
+      right: -10px;
+    }
   }
   .add-card {
     display: flex;

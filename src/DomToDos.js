@@ -413,7 +413,7 @@ const DomToDos = (() => {
     projectDiv.appendChild(projectTitle);
 
     let project = document.createElement("span");
-    project.textContent = toDo.project !== false ? toDo.project.title : "-";
+    project.textContent = toDo.project !== false && _projects.includes(toDo.project) ? toDo.project.title : "-";
     projectDiv.appendChild(project);
 
     // menu button
@@ -572,7 +572,7 @@ const DomToDos = (() => {
       editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
 
       // expand edit event listener
-      editBtn.addEventListener("click", (e) => {
+      editBtn.addEventListener("click", () => {
         _activeToggle(document.querySelector(".new-todo"));
         _newToDo(toDo);
       });
@@ -586,6 +586,8 @@ const DomToDos = (() => {
       // expand delete event listener
       deleteBtn.addEventListener("click", (e) => {
         // _expandToDo(e, toDo, deleteBtn);
+        _toDos = _toDos.filter(todo => todo !== toDo );
+        _buildToDos();
       });
       
     } else {
@@ -779,8 +781,17 @@ const DomToDos = (() => {
         checkBox.type = "checkbox";
         checkBox.checked = item[1];
 
+        let checkBoxDelete = document.createElement("div");
+        checkListItem.appendChild(checkBoxDelete);
+        checkBoxDelete.textContent = "Remove";
+
+        checkBoxDelete.addEventListener("click", () => {
+          checkListArray = checkListArray.filter(e => e[0] !== checkBoxTitle.value);
+          checkListItem.remove();
+        });
+
         // inserts every checklist item into checklist array
-        checkListArray.push([checkBoxTitle.value, checkBox.value]);
+        checkListArray.push([checkBoxTitle.value, checkBox.checked ? 1 : 0]);
       });
     };
 
@@ -796,6 +807,14 @@ const DomToDos = (() => {
       let checkBox = document.createElement("input");
       checkListItem.appendChild(checkBox);
       checkBox.type = "checkbox";
+
+      let checkBoxDelete = document.createElement("div");
+      checkListItem.appendChild(checkBoxDelete);
+      checkBoxDelete.textContent = "Remove";
+      checkBoxDelete.addEventListener("click", () => {
+        checkListArray.pop();
+        checkListItem.remove();
+      });
 
       // inserts every checklist item into checklist array
       checkListArray.push([checkBoxTitle.value, checkBox.value]);
@@ -832,6 +851,11 @@ const DomToDos = (() => {
         } else {
           toDo.checklist[i] = [checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0];
         };
+      };
+
+      // delete removed items from toDo object's checklist 
+      while (checkListArray.length !== toDo.checklist.length) {
+        toDo.checklist.pop();
       };
 
       if (toDo.title === "blank") {
@@ -917,33 +941,58 @@ const DomToDos = (() => {
     toDosWrapper.appendChild(dueDateTitle);
 
     project.toDoItems.forEach(toDo => {
-      let toDoDiv = document.createElement("div");
-      toDosDiv.appendChild(toDoDiv);
+      if (_toDos.includes(toDo)) {
+        let toDoDiv = document.createElement("div");
+        toDosDiv.appendChild(toDoDiv);
 
-      let toDoTitle = document.createElement("span");
-      toDoTitle.textContent = toDo.title;
-      toDoDiv.appendChild(toDoTitle);
+        let toDoTitle = document.createElement("span");
+        toDoTitle.textContent = toDo.title;
+        toDoDiv.appendChild(toDoTitle);
 
-      let toDoState = document.createElement("span");
-      toDoState.textContent = toDo.dueDate.toDateString();
-      toDoDiv.appendChild(toDoState);
+        let toDoState = document.createElement("span");
+        toDoState.textContent = toDo.dueDate.toDateString();
+        toDoDiv.appendChild(toDoState);
 
-      if (toDo.dueDate < new Date()) {
-        toDoState.style.color = "red";
+        if (toDo.dueDate < new Date()) {
+          toDoState.style.color = "red";
+        };
+
+        if (toDo.completed === true) {
+          toDoState.style.color = "green";
+        };
       };
+    });
 
-      if (toDo.completed === true) {
-        toDoState.style.color = "green";
-      };
+    // edit button
+    let editBtn = document.createElement("div");
+    wrapper.appendChild(editBtn);
+    editBtn.classList.add("edit-btn");
+    editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+
+    // expand edit event listener
+    editBtn.addEventListener("click", () => {
+      _activeToggle(document.querySelector(".new-todo"));
+      _newProject(project);
+    });
+
+    // delete button
+    let deleteBtn = document.createElement("div");
+    wrapper.appendChild(deleteBtn);
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.innerHTML = `<i class="far fa-trash-alt"></i>`
+
+    // expand delete event listener
+    deleteBtn.addEventListener("click", () => {
+      _projects = _projects.filter(prjct => prjct !== project );
+      // project = false;
+      _buildProjects();
     });
 
   };
 
   // new project form
-  const _newProject = () => {
-
-    // keep copy of a blank project
-    let project = { ..._blankProject };
+  // keep copy of a blank project
+  const _newProject = (project = { ..._blankProject }) => {
 
     // empties, creates and assign content container for all content (not navbar etc.)
     _content = _createContentContainer("new-project-wrapper");
@@ -964,7 +1013,7 @@ const DomToDos = (() => {
     let title = document.createElement("input");
     titleWrapper.appendChild(title);
     title.type = "text";
-    title.value = "Project";
+    title.value = project.title === "blank" ? "Project" : project.title;
 
     // description
     let descriptionWrapper = document.createElement("div");
@@ -978,7 +1027,7 @@ const DomToDos = (() => {
     let description = document.createElement("input");
     descriptionWrapper.appendChild(description);
     description.type = "text";
-    description.value = "Description";
+    description.value = project.title === "blank" ? "Description" : project.description;
 
     // to do items
     let toDoItemsWrapper = document.createElement("div");
@@ -999,6 +1048,9 @@ const DomToDos = (() => {
       toDoItems.appendChild(elementDiv);
       elementDiv.value = element.title;
       elementDiv.textContent = element.title;
+      if (project.title !== "blank") {
+        elementDiv.selected = project.toDoItems.includes(element) ? true : false;
+      };
     });
 
     // submit button
@@ -1011,16 +1063,21 @@ const DomToDos = (() => {
     submitBtn.textContent = "Save";
     submitBtn.addEventListener("click", () => {
 
-      project.title = title.value;
       project.description = description.value;
       
+      project.toDoItems = [];
       for (let i = 0; i < toDoItems.children.length; i++) {
         if (toDoItems.children[i].selected) {
           project.toDoItems.push(_toDos[i]);
-        }
+          _toDos[i].project = project;
+        };
       };
 
-      _projects.push(project);
+      if (project.title === "blank") {
+        _projects.push(project);
+      };
+
+      project.title = title.value;
 
       _buildProjects();
     });
