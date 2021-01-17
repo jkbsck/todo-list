@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url(/home/jkbsck/Desktop/the-odin-project/the-odin-project/javascript/todo-list/src/fontawesome.min.css);
 .header-container {
   position: relative;
   height: 240px;
@@ -429,34 +430,8 @@ header .navbar .projects {
 }
 
 .todo-item .wrapper .menu-btn {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-radius: 50% 25% 25% 50%;
-  border: solid 1px #0d324d;
   top: 5px;
   right: -10px;
-  -webkit-box-shadow: #0d324d -1px 1px 2px;
-          box-shadow: #0d324d -1px 1px 2px;
-  background: radial-gradient(at -200% -100%, white, #009fb7);
-  cursor: pointer;
-}
-
-.todo-item .wrapper .menu-btn:hover {
-  background: radial-gradient(at 500% 400%, white, #009fb7);
 }
 
 .todo-item .wrapper .menu-btn div {
@@ -690,66 +665,74 @@ header .navbar .projects {
   font-weight: initial;
 }
 
+.todo-item .expanded-todo .edit-btn {
+  top: 45px;
+  right: -10px;
+}
+
+.todo-item .expanded-todo .delete-btn {
+  top: 85px;
+  right: -10px;
+}
+
 .todo-item .wrapper-expanded {
   margin-right: 50%;
 }
 
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Exo 2', sans-serif;
-}
-
-.hidden {
-  display: none;
-}
-
-.main {
-  min-height: 100vh;
-  padding-bottom: 20px;
+.new-project-wrapper {
+  width: 90%;
+  margin: 20px auto 20px auto;
+  padding: 10px;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: solid 1px #0d324d;
+  border-radius: 10px;
+  -webkit-box-shadow: #0d324d 1px 2px 3px;
+          box-shadow: #0d324d 1px 2px 3px;
+}
+
+.new-project-wrapper input, .new-project-wrapper select {
+  border-radius: 5px;
+  background: #b7f6ff;
+}
+
+.new-project-wrapper > div {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 400px;
+          flex: 0 1 400px;
+  margin: 0 calc((100% - 400px) / 2);
+}
+
+.new-project-wrapper .wrapper {
+  margin: 0 auto;
+}
+
+.new-project-wrapper .wrapper > div {
+  margin: 35px 6%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background: radial-gradient(at -200% -100%, white, #009fb7);
 }
 
-.content {
-  width: 100%;
-  display: -ms-grid;
-  display: grid;
-  grid-auto-flow: row dense;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+.new-project-wrapper .wrapper > div > :first-child {
+  font-weight: 600;
+  font-size: 20px;
 }
 
-@media (min-width: 768px) {
-  .content {
-    -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 992px) {
-  .content {
-    -ms-grid-columns: (1fr)[4];
-        grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .content {
-    -ms-grid-columns: (1fr)[5];
-        grid-template-columns: repeat(5, 1fr);
-  }
+.new-project-wrapper .wrapper .to-do-items-wrapper select {
+  width: 210px;
+  height: 80px;
+  overflow: scroll;
 }
 
 .project-item {
@@ -843,6 +826,64 @@ header .navbar .projects {
   display: flex;
 }
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.main {
+  min-height: 100vh;
+  padding-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+}
+
+.content {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: row dense;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+@media (min-width: 768px) {
+  .content {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .content {
+    -ms-grid-columns: (1fr)[4];
+        grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .content {
+    -ms-grid-columns: (1fr)[5];
+        grid-template-columns: repeat(5, 1fr);
+  }
+}
+
 .add-card {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -889,5 +930,84 @@ header .navbar .projects {
   transition: transform .6s ease, -webkit-transform .6s ease;
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
+}
+
+.submit-btn-wrapper {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  height: 80px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.submit-btn-wrapper div {
+  height: 70px;
+  width: 70px;
+  border: outset 1px #144e79;
+  border-radius: 50%;
+  background: radial-gradient(at -80px -100px, white, #0d324d);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+          box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+  color: #F3FFC6;
+  font-weight: 600;
+  font-size: 20px;
+  text-shadow: #0d324d 3px 3px 1px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.submit-btn-wrapper div:hover {
+  border-color: #114063;
+  background: radial-gradient(at 200px 200px, white, #0d324d);
+  font-weight: 700;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+          box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+.menu-btn, .edit-btn, .delete-btn {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center !important;
+      -ms-flex-pack: center !important;
+          justify-content: center !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 50% 25% 25% 50%;
+  border: solid 1px #0d324d;
+  -webkit-box-shadow: #0d324d -1px 1px 2px;
+          box-shadow: #0d324d -1px 1px 2px;
+  background: radial-gradient(at -200% -100%, white, #009fb7);
+  cursor: pointer;
+}
+
+.menu-btn:hover, .edit-btn:hover, .delete-btn:hover {
+  background: radial-gradient(at 500% 400%, white, #009fb7);
 }
 /*# sourceMappingURL=style.css.map */

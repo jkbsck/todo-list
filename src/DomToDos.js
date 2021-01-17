@@ -37,9 +37,10 @@ const DomToDos = (() => {
     _addEventListenersToNavbar();
 
     // build default todos list
-    // _buildToDos();
+    _buildToDos();
     // _buildProjects();
-    _newToDo();
+    // _newToDo();
+    // _newProject();
 
   };
 
@@ -560,6 +561,28 @@ const DomToDos = (() => {
         checkBoxWrapper.appendChild(checkBoxTitle);
         checkBoxTitle.textContent = element[0];
       });
+
+      // edit button
+      let editBtn = document.createElement("div");
+      expandedToDo.appendChild(editBtn);
+      editBtn.classList.add("edit-btn");
+      editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+
+      // expand edit event listener
+      editBtn.addEventListener("click", (e) => {
+        // _expandToDo(e, toDo, editBtn);
+      });
+
+      // delete button
+      let deleteBtn = document.createElement("div");
+      expandedToDo.appendChild(deleteBtn);
+      deleteBtn.classList.add("delete-btn");
+      deleteBtn.innerHTML = `<i class="far fa-trash-alt"></i>`
+
+      // expand delete event listener
+      deleteBtn.addEventListener("click", (e) => {
+        // _expandToDo(e, toDo, deleteBtn);
+      });
       
     } else {
       toDoDiv.children[1].remove();
@@ -568,6 +591,7 @@ const DomToDos = (() => {
       // change style of menu btn
       menuBtn.classList.toggle("menu-btn-expanded");
     };
+
   };
 
   // new todo form

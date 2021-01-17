@@ -57,25 +57,9 @@
       box-shadow: $dark-blue 2px 3px 4px;
     }
     
-    // menu btn
     .menu-btn {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50% 25% 25% 50%;
-      border: solid 1px $dark-blue;
       top: 5px;
       right: -10px;
-      box-shadow: $dark-blue -1px 1px 2px;
-      background: radial-gradient(at -200% -100%, white, $light-blue);
-      cursor: pointer;
-      &:hover {
-        background: radial-gradient(at 500% 400%, white, $light-blue);
-      }
       div {
         width: 20px;
         height: 0;
@@ -218,6 +202,16 @@
           }
         }
       }
+    }
+    .edit-btn {
+      // background: red;
+      top: 45px;
+      right: -10px;
+    }
+    .delete-btn {
+      // background: green;
+      top: 85px;
+      right: -10px;
     }
   }
 

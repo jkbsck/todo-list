@@ -1,0 +1,38 @@
+// new project form
+.new-project-wrapper {
+  width: 90%;
+  margin: 20px auto 20px auto;
+  padding: 10px;
+  background: radial-gradient(at -200% -100%, white, $light-blue);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: solid 1px $dark-blue;
+  border-radius: 10px;
+  box-shadow: $dark-blue 1px 2px 3px;
+  input, select {
+    border-radius: 5px;
+    background: lighten($color: $light-blue, $amount: 50);
+  }
+  & > div {
+    flex: 0 1 400px;
+    margin: 0 calc((100% - 400px) / 2);
+  }
+  .wrapper {
+    margin: 0 auto;
+    & > div {
+      margin: 35px 6%;
+      display: flex;
+      justify-content: space-between;
+      & > :first-child {
+        font-weight: 600;
+        font-size: 20px;
+      }
+    }
+    .to-do-items-wrapper select {
+      width: 210px;
+      height: 80px;
+      overflow: scroll;
+    }
+  }
+}

@@ -8,6 +8,9 @@ $dark-blue: #0d324d;
 @import 'content.scss';
 @import 'new-todo.scss';
 @import 'todos.scss';
+@import 'new-project.scss';
+@import 'projects.scss';
+@import 'fontawesome.min.css';
 
 // config
 * {
@@ -58,65 +61,6 @@ $dark-blue: #0d324d;
   }
 }
 
-.project-item {
-  position: relative;
-  grid-column: span 2;
-  padding: 10px 0;
-  .wrapper {
-    width: 400px;
-    height: 480px;
-    position: relative;
-    margin: 0 auto;
-    border: solid 1px $dark-blue;
-    border-radius: 10px;
-    background: radial-gradient(at -200% -100%, white, $light-blue);
-    box-shadow: $dark-blue 1px 2px 3px;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 10% 30% 60%;
-    &:hover {
-      background: radial-gradient(at 300% 200%, white, $light-blue);
-      box-shadow: $dark-blue 2px 3px 4px;
-    }
-    & > div {
-      // border: solid 1px red;
-      display: flex;
-      padding: 10px;
-    }
-    .title-div {
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: 600;
-      border-bottom: solid 1px $dark-blue;
-    }
-    .description-div {
-      flex-direction: column;
-      :first-child {
-        padding-left: 10px;
-        font-size: 17px;
-        font-weight: 600;
-      }
-    }
-    .todos-div {
-      flex-direction: column;
-      margin: 0 20px;
-      & > :first-child {
-        padding: 0 20px;
-        font-size: 17px;
-        font-weight: 600;
-      }
-      div {
-        display: flex;
-        justify-content: space-between;
-      }
-    }
-  }
-  .add-card {
-    display: flex;
-  }
-}
-
 // add new card item button
 .add-card {
   flex-direction: column;
@@ -146,5 +90,56 @@ $dark-blue: #0d324d;
       transition: transform .6s ease;
       transform: rotate(180deg);
     }
+  }
+}
+
+// submit button
+.submit-btn-wrapper {
+  flex: 0 0 100%;
+  height: 80px;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    height: 70px;
+    width: 70px;
+    border: outset 1px lighten($dark-blue, 10);
+    border-radius: 50%;
+    background: radial-gradient(at -80px -100px, white, $dark-blue);
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+    color: #F3FFC6;
+    font-weight: 600;
+    font-size: 20px;
+    text-shadow: $dark-blue 3px 3px 1px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      border-color: lighten($dark-blue, 5);
+      background: radial-gradient(at 200px 200px, white, $dark-blue);
+      font-weight: 700;
+      box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+    }
+  }
+}
+
+// menu btn
+.menu-btn, .edit-btn, .delete-btn {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center;
+  border-radius: 50% 25% 25% 50%;
+  border: solid 1px $dark-blue;
+  box-shadow: $dark-blue -1px 1px 2px;
+  background: radial-gradient(at -200% -100%, white, $light-blue);
+  cursor: pointer;
+  &:hover {
+    background: radial-gradient(at 500% 400%, white, $light-blue);
   }
 }

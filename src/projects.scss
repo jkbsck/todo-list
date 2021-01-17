@@ -1,0 +1,59 @@
+// projects
+.project-item {
+  position: relative;
+  grid-column: span 2;
+  padding: 10px 0;
+  .wrapper {
+    width: 400px;
+    height: 480px;
+    position: relative;
+    margin: 0 auto;
+    border: solid 1px $dark-blue;
+    border-radius: 10px;
+    background: radial-gradient(at -200% -100%, white, $light-blue);
+    box-shadow: $dark-blue 1px 2px 3px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 30% 60%;
+    &:hover {
+      background: radial-gradient(at 300% 200%, white, $light-blue);
+      box-shadow: $dark-blue 2px 3px 4px;
+    }
+    & > div {
+      // border: solid 1px red;
+      display: flex;
+      padding: 10px;
+    }
+    .title-div {
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: 600;
+      border-bottom: solid 1px $dark-blue;
+    }
+    .description-div {
+      flex-direction: column;
+      :first-child {
+        padding-left: 10px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+    }
+    .todos-div {
+      flex-direction: column;
+      margin: 0 20px;
+      & > :first-child {
+        padding: 0 20px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      div {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+  .add-card {
+    display: flex;
+  }
+}
