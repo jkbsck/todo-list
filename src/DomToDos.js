@@ -49,35 +49,36 @@ const DomToDos = (() => {
 
     let newTodo = document.querySelector(".new-todo");
     newTodo.addEventListener("click", () => {
-      activeToggle(newTodo);
+      _activeToggle(newTodo);
       _newToDo();
     });
 
     let todos = document.querySelector(".todos");
     todos.addEventListener("click", () => {
-      activeToggle(todos);
+      _activeToggle(todos);
       _buildToDos();
     });
 
     let newProject = document.querySelector(".new-project");
     newProject.addEventListener("click", () => {
-      activeToggle(newProject);
+      _activeToggle(newProject);
       _newProject();
     });
 
     let projects = document.querySelector(".projects");
     projects.addEventListener("click", () => {
-      activeToggle(projects);
+      _activeToggle(projects);
       _buildProjects();
     });
 
-    const activeToggle = (element) => {
-      let navbarElements = document.querySelectorAll(".navbar-item");
-      navbarElements.forEach(e => {
-        e === element ? e.classList.add("navbar-active") : e.classList.remove("navbar-active");
-      });
-    };
+  };
 
+  // switch between active navbar items accordingly
+  const _activeToggle = (element) => {
+    let navbarElements = document.querySelectorAll(".navbar-item");
+    navbarElements.forEach(e => {
+      e === element ? e.classList.add("navbar-active") : e.classList.remove("navbar-active");
+    });
   };
 
   // content container creation - argument is name of child's class
@@ -125,8 +126,10 @@ const DomToDos = (() => {
     // event listener for new todo / project form
     wrapper.addEventListener("click", () => {
       if (arg === "todo") {
+        _activeToggle(document.querySelector(".new-todo"));
         _newToDo();
       } else {
+        _activeToggle(document.querySelector(".new-project"));
         _newProject();
       };
     });
@@ -570,7 +573,8 @@ const DomToDos = (() => {
 
       // expand edit event listener
       editBtn.addEventListener("click", (e) => {
-        // _expandToDo(e, toDo, editBtn);
+        _activeToggle(document.querySelector(".new-todo"));
+        _newToDo(toDo);
       });
 
       // delete button
@@ -595,10 +599,8 @@ const DomToDos = (() => {
   };
 
   // new todo form
-  const _newToDo = () => {
-
-    // keep copy of blank todo
-    let toDo = { ..._blankToDo };
+  // keep copy of blank todo
+  const _newToDo = (toDo = { ..._blankToDo }) => {
 
     // empties, creates and assign content container for all content (not navbar etc.)
     _content = _createContentContainer("new-todo-wrapper");
@@ -624,7 +626,7 @@ const DomToDos = (() => {
     let title = document.createElement("input");
     titleWrapper.appendChild(title);
     title.type = "text";
-    title.value = "To Do";
+    title.value = toDo.title === "blank" ? "To Do" : toDo.title;
 
     // description
     let descriptionWrapper = document.createElement("div");
@@ -638,7 +640,7 @@ const DomToDos = (() => {
     let description = document.createElement("input");
     descriptionWrapper.appendChild(description);
     description.type = "text";
-    description.value = "Description";
+    description.value = toDo.title === "blank" ? "Description" : toDo.description;
 
     // dueDate
     let dueDateWrapper = document.createElement("div");
@@ -652,7 +654,7 @@ const DomToDos = (() => {
     let dueDate = document.createElement("input");
     dueDateWrapper.appendChild(dueDate);
     dueDate.type = "date";
-    dueDate.valueAsDate = new Date();
+    dueDate.valueAsDate = toDo.title === "blank" ? new Date() : toDo.dueDate;
 
     // priority
     let priorityWrapper = document.createElement("div");
@@ -676,7 +678,7 @@ const DomToDos = (() => {
     low.type = "radio";
     low.name = "priority";
     low.id = "low";
-    low.checked = true;
+    low.checked = toDo.priority === "low" ? true : false;
 
     // normal
     let normalLabel = document.createElement("span");
@@ -688,6 +690,7 @@ const DomToDos = (() => {
     normal.type = "radio";
     normal.name = "priority";
     normal.id = "normal";
+    normal.checked = toDo.priority === "normal" ? true : false;
 
     // high
     let highLabel = document.createElement("span");
@@ -699,6 +702,8 @@ const DomToDos = (() => {
     high.type = "radio";
     high.name = "priority";
     high.id = "high";
+    high.checked = toDo.priority === "high" ? true : false;
+
 
     // project
     let projectWrapper = document.createElement("div");
@@ -712,6 +717,7 @@ const DomToDos = (() => {
     let project = document.createElement("select");
     projectWrapper.appendChild(project);
     project.name = "project";
+    // project.value = toDo.title === "blank" ? "none" : toDo.project.title; 
 
     // no project option
     let noProjectDiv = document.createElement("option");
@@ -724,6 +730,7 @@ const DomToDos = (() => {
       project.appendChild(elementDiv);
       elementDiv.value = element.title;
       elementDiv.textContent = element.title;
+      elementDiv.selected = toDo.project.title === element.title ? true : false;
     });
 
     // second form div content
@@ -739,7 +746,7 @@ const DomToDos = (() => {
     let notes = document.createElement("input");
     notesWrapper.appendChild(notes);
     notes.type = "text";
-    notes.value = "Notes";
+    notes.value = toDo.title === "blank" ? "Notes" : toDo.notes;
 
     // checkList
     let checkListWrapper = document.createElement("div");
@@ -755,6 +762,27 @@ const DomToDos = (() => {
     checkListWrapper.appendChild(addCheckListItem);
     addCheckListItem.textContent = "+";
     let checkListArray = []; // checklist array
+
+    // if editing - keep old checklist items
+    if (toDo.title !== "blank") {
+      toDo.checklist.forEach(item => {
+        let checkListItem = document.createElement("div");
+        checkListWrapper.insertBefore(checkListItem, addCheckListItem);
+
+        let checkBoxTitle = document.createElement("input");
+        checkListItem.appendChild(checkBoxTitle);
+        checkBoxTitle.type = "text";
+        checkBoxTitle.value = item[0];
+
+        let checkBox = document.createElement("input");
+        checkListItem.appendChild(checkBox);
+        checkBox.type = "checkbox";
+        checkBox.checked = item[1];
+
+        // inserts every checklist item into checklist array
+        checkListArray.push([checkBoxTitle.value, checkBox.value]);
+      });
+    };
 
     addCheckListItem.addEventListener("click", () => {
 
@@ -784,7 +812,6 @@ const DomToDos = (() => {
     submitBtn.textContent = "Save";
     submitBtn.addEventListener("click", () => {
 
-      toDo.title = title.value;
       toDo.description = description.value;
       toDo.dueDate = dueDate.valueAsDate;
       toDo.priority = document.querySelector('input[name="priority"]:checked').id;
@@ -797,11 +824,22 @@ const DomToDos = (() => {
       };
 
       toDo.notes = notes.value;
-      for (let i = 0; i < checkListArray.length; i++) {
-        toDo.checklist.push([checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0]);
-      }
 
-      _toDos.push(toDo);
+      for (let i = 0; i < checkListArray.length; i++) {
+        if (toDo.title === "blank") {
+
+          toDo.checklist.push([checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0]);
+        } else {
+          toDo.checklist[i] = [checkListWrapper.children[i + 1].children[0].value, checkListWrapper.children[i + 1].children[1].checked ? 1 : 0];
+        };
+      };
+
+      if (toDo.title === "blank") {
+        _toDos.push(toDo);
+      };
+
+      // change last because it stores "blank" value which is used above
+      toDo.title = title.value; 
 
       _buildToDos();
     });
