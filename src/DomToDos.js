@@ -14,10 +14,10 @@ const DomToDos = (() => {
   // blank todo - for creation of new todos inside of this module
   let _blankToDo = {};
 
-  // blank project - for creation of newprojects inside of this module
+  // blank project - for creation of new projects inside of this module
   let _blankProject = {};
 
-  // variable for content container - quite useless actually but whatever
+  // variable for content container
   let _content;
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -136,11 +136,53 @@ const DomToDos = (() => {
 
   };
 
+  // save to active storage
+  const _save = () => {
+    // save to active storage - works, do not touch! (problems on VSC live server)
+
+    // todos
+    let JSONToDos = [];
+    
+    _toDos.forEach(todo => {
+      let JSONToDo = JSON.stringify(todo, (key, value) => {
+        if (key === "project") {
+          return value.title;
+        };
+        return value;
+      });
+      JSONToDos.push(JSONToDo);
+    });
+
+    localStorage.setItem("toDos", JSON.stringify(JSONToDos));
+
+    // projects
+    let JSONProjects = [];
+    
+    _projects.forEach(project => {
+      let JSONProject = JSON.stringify(project, (key, value) => {
+        if (key === "toDoItems") {
+          let todos = [];
+          value.forEach(todo => {
+            todos.push(todo.title);
+          });
+          return todos;
+        };
+        return value;
+      });
+      JSONProjects.push(JSONProject);
+    });
+
+    localStorage.setItem("projects", JSON.stringify(JSONProjects));
+  };
+
 /////////////////////////////////////////////////////////////////////////////////////
   // TODO METHODS
 
   // build html for todos ordered by oldest showing only pending todos
   const _buildToDos = (filtered = ["oldest", "pending"]) => {
+
+    // save to active storage - works, do not touch! (problems on VSC live server)
+    _save();
 
     // activate proper navbar element
     _activeToggle(document.querySelector(".todos"));
@@ -374,7 +416,7 @@ const DomToDos = (() => {
 
     let date = document.createElement("span");
 
-    // if todo isn't completed on text is red if completed green
+    // if todo isn't completed text is red if completed green
     if (toDo.completed === false && toDo.dueDate > new Date() ) {
       date.textContent = toDo.dueDate.toDateString();
     };
@@ -416,7 +458,16 @@ const DomToDos = (() => {
     projectDiv.appendChild(projectTitle);
 
     let project = document.createElement("span");
+
+    //////// BUG /////////
+
+    // when on VSC live server, console.log(_projects.includes(toDo.project)) === false, otherwise it is true
+    // it causes projects on todo cards to be blank and simillarly todos on project cards act weird
+
     project.textContent = toDo.project !== false && _projects.includes(toDo.project) ? toDo.project.title : "-";
+
+    ///////////////////////
+    
     projectDiv.appendChild(project);
 
     // menu button
@@ -712,7 +763,6 @@ const DomToDos = (() => {
     high.id = "high";
     high.checked = toDo.priority === "high" ? true : false;
 
-
     // project
     let projectWrapper = document.createElement("div");
     wrapperOne.appendChild(projectWrapper);
@@ -725,7 +775,6 @@ const DomToDos = (() => {
     let project = document.createElement("select");
     projectWrapper.appendChild(project);
     project.name = "project";
-    // project.value = toDo.title === "blank" ? "none" : toDo.project.title; 
 
     // no project option
     let noProjectDiv = document.createElement("option");
@@ -841,6 +890,11 @@ const DomToDos = (() => {
       toDo.dueDate = dueDate.valueAsDate;
       toDo.priority = document.querySelector('input[name="priority"]:checked').id;
 
+      // remove todo from old project todo list
+      if (toDo.project !== false) {
+        toDo.project.toDoItems = toDo.project.toDoItems.filter(e => e !== toDo);
+      };
+
       if (project.value === "none") {
         toDo.project = false;
       } else {
@@ -881,6 +935,9 @@ const DomToDos = (() => {
 
   // build projects
   const _buildProjects = () => {
+
+    // save to active storage - works, do not touch! (problems on VSC live server)
+    _save();
 
     // activate proper navbar element
     _activeToggle(document.querySelector(".projects"));
@@ -1082,6 +1139,8 @@ const DomToDos = (() => {
         if (toDoItems.children[i].selected) {
           project.toDoItems.push(_toDos[i]);
           _toDos[i].project = project;
+        } else if (_toDos[i].project === project) { // if todo is unchecked, removes from its project
+          _toDos[i].project = false;
         };
       };
 

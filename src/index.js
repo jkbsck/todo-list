@@ -58,40 +58,68 @@ const ToDo = (() => {
 
 })();
 
-let todo1 = new ToDo.ToDoItem("Tide up", "Tide up my bedroom and kitchen.", new Date("2021-1-25"), "normal", "Use vacuum cleaner not just a broom.", [["kitchen", 1], ["bedroom", 0]], true, new Date("2021-1-5"));
+// initial seed
+if (localStorage.getItem("toDos") === null) {
 
-let todo4 = new ToDo.ToDoItem("Buy a lamp", "Buy lamp at ikea.", new Date("2021-3-1"), "high", "Max price is 10$.");
+  new ToDo.ToDoItem("Tide up", "Tide up my bedroom and kitchen.", new Date("2021-1-25"), "normal", "Use vacuum cleaner not just a broom.", [["kitchen", 1], ["bedroom", 0]], true, new Date("2021-1-5"));
 
-let todo2 = new ToDo.ToDoItem("Buy a table", "Buy kitchen table at ikea.", new Date("2021-2-28"), "high", "Max price is 100$.");
-let todo3 = new ToDo.ToDoItem("Learn programming", "Learn at least 5 programming languages.", new Date("2021-4-15"), "low", "3 languages on advanced level and 2 intermediate.", [["golang", 0], ["javascript", 1], ["ruby", 1], ["rust", 0], ["c#", 0]]);
-// console.log(todo1);
+  new ToDo.ToDoItem("Buy a lamp", "Buy lamp at ikea.", new Date("2021-3-1"), "high", "Max price is 10$.");
 
-let project1 = new ToDo.ToDoProject("House renovation", "Steb by step revonation of my house.", );
-project1.toDoItems.push(todo4);
-project1.toDoItems.push(todo2);
-// console.log(project1);
+  new ToDo.ToDoItem("Buy a table", "Buy kitchen table at ikea.", new Date("2021-1-15"), "high", "Max price is 100$.");
+  new ToDo.ToDoItem("Learn programming", "Learn at least 5 programming languages.", new Date("2021-4-15"), "low", "3 languages on advanced level and 2 intermediate.", [["golang", 0], ["javascript", 1], ["ruby", 1], ["rust", 0], ["c#", 0]]);
 
-let todos = ToDo.toDos;
-let projects = ToDo.projects;
-// console.log(projects[1]);
-let project2 = new ToDo.ToDoProject("Learning", "Learning of various skills.");
-project2.toDoItems.push(todo3);
-// console.log(projects[1]);
+  new ToDo.ToDoProject("House renovation", "Step by step renovation of my house.");
+  ToDo.projects[0].toDoItems.push(ToDo.toDos[2]);
+  ToDo.projects[0].toDoItems.push(ToDo.toDos[1]);
 
-todo4.project = project1;
-todo2.project = project1;
-todo3.project = project2;
+  new ToDo.ToDoProject("Learning", "Learning of various skills.");
+  ToDo.projects[1].toDoItems.push(ToDo.toDos[3]);
 
-for (let i = 1; i < 10; i++) {
-	new ToDo.ToDoItem();
+  ToDo.toDos[3].project = ToDo.projects[1];
+  ToDo.toDos[1].project = ToDo.projects[0];
+  ToDo.toDos[2].project = ToDo.projects[0];
+
+// data from local storage - todos and projects stores references of each other (TypeError: cyclic object value when parsing to/from JSON), therefore this "ugly" solution
+} else {
+
+  JSON.parse(localStorage.getItem("toDos")).forEach(todo => {
+    
+    let toDoParsed = JSON.parse(todo);
+
+    toDoParsed.dueDate = new Date(toDoParsed.dueDate);
+    toDoParsed.completedOn = new Date(toDoParsed.completedOn);
+    
+    ToDo.toDos.push(toDoParsed);
+    
+  });
+
+  JSON.parse(localStorage.getItem("projects")).forEach(project => {
+    ToDo.projects.push(JSON.parse(project));
+
+    let projectParsed = JSON.parse(project);
+
+    ToDo.toDos.forEach(todo => {
+      if (todo.project === projectParsed.title) {
+        todo.project = projectParsed;
+      };
+
+      if (projectParsed.toDoItems.includes(todo.title)) {
+
+        projectParsed.toDoItems[projectParsed.toDoItems.indexOf(todo.title)] = todo;
+
+        ToDo.projects.forEach(prjct => {
+          if (prjct.title === projectParsed.title) {
+            prjct.toDoItems = projectParsed.toDoItems;
+          };
+        });
+      };
+    });
+  });
+
+  console.log(ToDo.toDos);
+  console.log(ToDo.projects);
+
 };
-todos[todos.length - 1].dueDate = new Date("2020-1-1");
 
-
-
-// DomToDos.buildToDosByDate(todos);
-
-DomToDos.start(todos, projects, new ToDo.ToDoItem("blank"), new ToDo.ToDoProject("blank"));
-
-// let newTodo = new ToDo.ToDoItem();
-// DomToDos.newToDo(newTodo, todos, projects);
+// start
+DomToDos.start(ToDo.toDos, ToDo.projects, new ToDo.ToDoItem("blank"), new ToDo.ToDoProject("blank"));

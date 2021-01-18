@@ -161,6 +161,7 @@
     }
     .description-div {
       grid-column: 2 / 3;
+      margin-right: 10px;
     }
     .checklist-div {
       grid-column: 2 / 3;
@@ -204,12 +205,10 @@
       }
     }
     .edit-btn {
-      // background: red;
       top: 45px;
       right: -10px;
     }
     .delete-btn {
-      // background: green;
       top: 85px;
       right: -10px;
     }
