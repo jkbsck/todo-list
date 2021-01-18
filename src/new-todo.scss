@@ -47,12 +47,22 @@
       flex-direction: column;
       & > div:not(:first-child) {
         align-self: flex-end;
+        display: flex;
         input {
           margin: 10px;
         }
         :nth-child(2) {
           position: relative;
           top: 3px;
+        }
+        :last-child {
+          font-weight: 600;
+          position: relative;
+          top: 13px;
+          cursor: pointer;
+          &:hover {
+            color: lighten($color: $dark-blue, $amount: 5); 
+          }
         }
       }
       & > :last-child {

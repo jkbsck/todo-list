@@ -142,6 +142,9 @@ const DomToDos = (() => {
   // build html for todos ordered by oldest showing only pending todos
   const _buildToDos = (filtered = ["oldest", "pending"]) => {
 
+    // activate proper navbar element
+    _activeToggle(document.querySelector(".todos"));
+
     // empties, creates and assign content container for all content (not navbar etc.)
     _content = _createContentContainer("content");
 
@@ -604,6 +607,9 @@ const DomToDos = (() => {
   // keep copy of blank todo
   const _newToDo = (toDo = { ..._blankToDo }) => {
 
+    // activate proper navbar element
+    _activeToggle(document.querySelector(".new-todo"));
+
     // empties, creates and assign content container for all content (not navbar etc.)
     _content = _createContentContainer("new-todo-wrapper");
     
@@ -876,6 +882,9 @@ const DomToDos = (() => {
   // build projects
   const _buildProjects = () => {
 
+    // activate proper navbar element
+    _activeToggle(document.querySelector(".projects"));
+
     // empties, creates and assign content container for all content (not navbar etc.)
     _content = _createContentContainer("content");
 
@@ -993,6 +1002,9 @@ const DomToDos = (() => {
   // new project form
   // keep copy of a blank project
   const _newProject = (project = { ..._blankProject }) => {
+
+    // activate proper navbar element
+    _activeToggle(document.querySelector(".new-project"));
 
     // empties, creates and assign content container for all content (not navbar etc.)
     _content = _createContentContainer("new-project-wrapper");
